@@ -35,6 +35,7 @@ import sys
 from pathlib import Path
 
 DEFAULT_SIZES = [5, 10, 20]  # plus "all"
+DEBUG = False
 
 
 # ----------------------------------------------------------------------------- helpers
@@ -92,14 +93,61 @@ def load_dataset_meta(repo_id: str, revision: str | None):
     else:
         rows = list(eps_obj)
 
-    episodes = []
-    for r in rows:
-        ep_tasks = list(r["tasks"]) if "tasks" in r else []
-        idxs = sorted({text_to_index[norm(t)] for t in ep_tasks if norm(t) in text_to_index})
-        episodes.append(
-            {"episode_index": int(r["episode_index"]), "length": int(r["length"]), "task_indices": idxs}
-        )
+    if DEBUG and rows:
+        print("[debug] episode metadata columns:", sorted(rows[0].keys()))
+        print("[debug] first row:", {k: rows[0][k] for k in list(rows[0])[:8]})
+
+    def task_indices_of(r) -> list[int]:
+        # Strategy 1: the `tasks` column (instruction text, a list or a single string).
+        raw = r.get("tasks")
+        if raw is not None:
+            items = [raw] if isinstance(raw, str) else [str(x) for x in _flat(raw)]
+            idxs = sorted({text_to_index[norm(t)] for t in items if norm(t) in text_to_index})
+            if idxs:
+                return idxs
+        # Strategy 2: per-episode stats of the task_index feature (v3 metadata).
+        lo, hi = r.get("stats/task_index/min"), r.get("stats/task_index/max")
+        if lo is not None and hi is not None:
+            lo, hi = int(_flat(lo)[0]), int(_flat(hi)[0])
+            return [lo] if lo == hi else list(range(lo, hi + 1))
+        return []
+
+    episodes = [
+        {"episode_index": int(r["episode_index"]), "length": int(r["length"]), "task_indices": task_indices_of(r)}
+        for r in rows
+    ]
+
+    # Strategy 3 (fallback): read episode_index/task_index from the data parquet files
+    # (tabular frames only, no videos; tens of MB).
+    if all(len(e["task_indices"]) != 1 for e in episodes):
+        print("  episode metadata has no usable task info; reading task_index from the data files ...")
+        ep_to_tasks = _task_index_from_data(repo_id, sha)
+        for e in episodes:
+            e["task_indices"] = sorted(ep_to_tasks.get(e["episode_index"], []))
     return sha, version, tasks, episodes
+
+
+def _flat(x) -> list:
+    """Flatten numpy arrays / nested lists to a plain list."""
+    try:
+        import numpy as np
+
+        return list(np.asarray(x, dtype=object).ravel())
+    except Exception:
+        return list(x) if isinstance(x, (list, tuple)) else [x]
+
+
+def _task_index_from_data(repo_id: str, sha: str) -> dict[int, set[int]]:
+    import pandas as pd
+    from huggingface_hub import snapshot_download
+
+    root = snapshot_download(repo_id, repo_type="dataset", revision=sha, allow_patterns=["data/**/*.parquet"])
+    mapping: dict[int, set[int]] = {}
+    for f in sorted(Path(root, "data").rglob("*.parquet")):
+        df = pd.read_parquet(f, columns=["episode_index", "task_index"]).drop_duplicates()
+        for ep, ti in zip(df["episode_index"], df["task_index"]):
+            mapping.setdefault(int(ep), set()).add(int(ti))
+    return mapping
 
 
 def load_sim_tasks(suite: str) -> list[str]:
@@ -129,7 +177,10 @@ def main() -> None:
     p.add_argument("--sizes", type=int, nargs="*", default=DEFAULT_SIZES)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--out", default="configs/splits.json")
+    p.add_argument("--debug", action="store_true", help="print the episode metadata columns")
     args = p.parse_args()
+    global DEBUG
+    DEBUG = args.debug
 
     print(f"Loading metadata for {args.repo_id} ...")
     sha, version, tasks, episodes = load_dataset_meta(args.repo_id, args.revision)
