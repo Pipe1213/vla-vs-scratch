@@ -1,0 +1,4 @@
+outputs/
+wandb/
+*.safetensors
+*.mp4
