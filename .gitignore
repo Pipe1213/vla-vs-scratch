@@ -2,3 +2,7 @@ outputs/
 wandb/
 *.safetensors
 *.mp4
+__pycache__/
+*.pyc
+*.log
+.ipynb_checkpoints/
