@@ -1,0 +1,5 @@
+date,run,method,task,n_demos,steps,where,hardware,hours,cost_usd,notes
+2026-10-17,smolvla_dryrun,smolvla,t1,all,5,laptop,CPU,0.12,0,config dry run (action dim 7 verified)
+2026-10-17,act_obj_t1_nall_pilot,act,t1,all,100000,laptop,RTX 4050 6GB,4.75,0,pilot; 5.9 steps/s; ckpt every 20k
+2026-10-17,smolvla_obj_t1_nall_pilot,smolvla,t1,all,20000,hf_jobs,l4x1 L4 24GB,5.6,4.48,pilot; 1.07 steps/s; ckpt every 5k pushed to Hub; billed time
+2026-10-18,act_obj_t1_nall_pilot30k,act,t1,all,30000,laptop,RTX 4050 6GB,1.45,0,pilot; ckpt every 5k
