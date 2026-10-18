@@ -29,14 +29,67 @@ One failure can have two codes (e.g. `G-MISS + NO-RETRY`); list the first cause 
 
 | Ckpt | Episode | Result | Codes | Notes |
 |---|---|---|---|---|
-| | | | | |
+|20K | 0| 1 | | The task was executed correclty |
+|20K | 1| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|20K | 2| 1 | | The task was executed correclty |
+|20K | 3| 1 | | The task was executed correclty |
+|20K | 4| 1 | | The task was executed correclty |
+|20K | 5| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|20K | 6| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|20K | 7| 1 | | The task was executed correclty |
+|20K | 8| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|20K | 9| 1 | | The task was executed correclty |
+|40K | 0| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|40K | 1| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|40K | 2| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|40K | 3| 1 | COLLIDE | The task was executed correclty with a small collition with the object next to the target one |
+|40K | 4| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|40K | 5| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|40K | 6| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|40K | 7| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|40K | 8| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|40K | 9| 1 | COLLIDE | The task was executed correclty with a small collition with the object next to the target one that make it fall |
+|60K | 0| 0 | G-SLIP + NO-RETRY | Gripper couldn't grab the object correctly and keep moving to the basket |
+|60K | 1| 0 | WRONG-OBJ + COLLIDE | This episode is in between the two error, it didn't approach correctly to the object and collide or try to grab the wrong one |
+|60K | 2| 1 | | The task was executed correclty |
+|60K | 3| 1 | COLLIDE | The task was executed correclty with a small collition with the object next to the target one |
+|60K | 4| 0 | WRONG-OBJ + COLLIDE | This episode is in between the two error, it didn't approach correctly to the object and collide or try to grab the wrong one |
+|60K | 5| 0 | G-SLIP + NO-RETRY | Gripper drop the object middle way (slip) and keep moving to the basket |
+|60K | 6| 0 | WRONG-OBJ + COLLIDE + NO-RETRY | This episode is in between the two error, it didn't approach correctly to the object and collide or try to grab the wrong one |
+|60K | 7| 0 | WRONG-OBJ + COLLIDE + NO-RETRY | This episode is in between the two error, it didn't approach correctly to the object and collide or try to grab the wrong one |
+|60K | 8| 0 | WRONG-OBJ + COLLIDE + NO-RETRY | This episode is in between the two error, it didn't approach correctly to the object and collide or try to grab the wrong one |
+|60K | 9| 1 | | The task was executed correclty |
+|80K | 0| 0 | COLLIDE + G-MISS + NO-RETRY | Gripper miss the object and collite with it |
+|80K | 1| 0 | WRONG-OBJ + COLLIDE + NO-RETRY | Gripper approach to an object next to the target one and collite with it |
+|80K | 2| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|80K | 3| 1 | COLLIDE | The task was executed correclty with a small collition with the object next to the target one |
+|80K | 4| 1 | COLLIDE | The task was executed correclty with a small collition with the object next to the target one |
+|80K | 5| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|80K | 6| 1 | | The task was executed correclty |
+|80K | 7| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|80K | 8| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|80K | 9| 1 | COLLIDE | The task was executed correclty with a small collition with the object next to the target one that make it fall |
+|100K | 0| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|100K | 1| 0 | WRONG-OBJ + COLLIDE + NO-RETRY | Gripper approach to an object next to the target one and collite with it |
+|100K | 2| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|100K | 3| 1 | COLLIDE | The task was executed correclty with a small collition with the object next to the target one |
+|100K | 4| 1 | COLLIDE | The task was executed correclty with a small collition with the object next to the target one |
+|100K | 5| 0 | G-MISS + NO-RETRY | Gripper miss the object and keep moving toward the basket area, gripper keeps trying to grasp |
+|100K | 6| 1 | | The task was executed correclty |
+|100K | 7| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|100K | 8| 0 | G-MISS + COLLIDE + NO-RETRY | Gripper miss the object, collide with object next to and keep moving toward the basket area, gripper keeps trying to grasp|
+|100K | 9| 1 | | The task was executed correclty |
+
+
 
 General impressions:
 - Main failure point is the grasp: the arm's precision at the grasp, not perception.
-- It identifies the correct object and the basket correctly (no WRONG-OBJ seen).
+- It identifies the correct object and the basket correctly (no WRONG-OBJ seen) but in some trial it looks like it tries to take the object next to but not clear.
 - When the grasp succeeds, the rest of the task (transport + place) almost always succeeds.
 - After a missed grasp it keeps moving toward the basket and "tries to grab" at the same time, and does not retry (NO-RETRY). Hypothesis: open-loop execution of 100-action chunks (~2/3 of an episode) hides the miss from the policy.
 - Sometimes the arm hits the object next to the target (COLLIDE) and then fails.
+
+With n_action_steps=10/20, success rises to 80–95% at 20k–100k; the NO-RETRY failures above are mostly an open-loop artefact
 
 Sweep context (20 eps each): 20k 10/20, 40k 3/20, 60k 5/20, 80k 4/20, 100k 5/20.
 
@@ -48,7 +101,51 @@ Sweep context (20 eps each): 20k 10/20, 40k 3/20, 60k 5/20, 80k 4/20, 100k 5/20.
 
 | Ckpt | Episode | Result | Codes | Notes |
 |---|---|---|---|---|
-| | | | | |
+| 5K | 0 | 1 | (G-MISS) | The task was executed correclty but the gripper miss the first try but correctly grab at the second try|
+| 5K | 1 | 0 | (G-MISS) + G-SLIP | Miss in grabbing the object and slip a few times|
+| 5K | 2 | 1 | | The task was executed correclty |
+| 5K | 3 | 0 | (G-MISS) | Gripper couldn't grab the object even after a few retries, then move the empty gripper to the basket |
+| 5K | 4 | 1 | | The task was executed correclty |
+| 5K | 5 | 1 | | The task was executed correclty |
+| 5K | 6 | 1 | | The task was executed correclty |
+| 5K | 7 | 1 | | The task was executed correclty |
+| 5K | 8 | 1 | | The task was executed correclty |
+| 5K | 9 | 1 | | The task was executed correclty |
+| 10K | 0 | 1 | | The task was executed correclty |
+| 10K | 1 | 1 | | The task was executed correclty |
+| 10K | 2 | 1 | | The task was executed correclty |
+| 10K | 3 | 1 | | The task was executed correclty |
+| 10K | 4 | 0 | (G-MISS) | Gripper couldn't grab the object even after a few retries, then move the empty gripper to the basket |
+| 10K | 5 | 1 | | The task was executed correclty |
+| 10K | 6 | 1 | | The task was executed correclty |
+| 10K | 7 | 0 | (G-MISS) | Gripper couldn't grab the object even after a few retries, then move the empty gripper to the basket |
+| 10K | 8 | 1 | | The task was executed correclty |
+| 10K | 9 | 1 | | The task was executed correclty |
+| 15K | 0 | 1 |(G-MISS) + G-SLIP | The task was executed correclty, miss in grabbing the object and slip a few times but retry and complete the task|
+| 15K | 1 | 1 | | The task was executed correclty |
+| 15K | 2 | 1 | | The task was executed correclty |
+| 15K | 3 | 0 | (G-MISS) + G-SLIP | Miss in grabbing the object and slip and it couldn't complete the task, the gripper move to the target empty|
+| 15K | 4 | 0 | (G-MISS) | Gripper couldn't grab the object even after a few retries, then move the empty gripper to the basket |
+| 15K | 5 | 1 | | The task was executed correclty |
+| 15K | 6 | 1 | OTHER | The task was executed correclty but the placement was near the edge of the basket almost failing |
+| 15K | 7 | 1 | | The task was executed correclty |
+| 15K | 8 | 1 | | The task was executed correclty |
+| 15K | 9 | 0 | (G-MISS) | Gripper couldn't grab the object even after a few retries, then move the empty gripper to the basket |
+| 20K | 0 | 1 | | The task was executed correclty |
+| 20K | 1 | 1 | | The task was executed correclty |
+| 20K | 2 | 1 | | The task was executed correclty |
+| 20K | 3 | 1 | | The task was executed correclty |
+| 20K | 4 | 0 | (G-MISS) | Gripper couldn't grab the object even after a few retries, then move the empty gripper to the basket |
+| 20K | 5 | 1 | | The task was executed correclty |
+| 20K | 6 | 1 | OTHER | The task was executed correclty but the placement was near the edge of the basket almost failing |
+| 20K | 7 | 1 | | The task was executed correclty |
+| 20K | 8 | 1 | | The task was executed correclty |
+| 20K | 9 | 1 | | The task was executed correclty |
+
+
 
 General impressions:
--
+- Main failure point was the grasp, it miss grabbing the object or drop it.
+- It correclty identify the target object on all the videos.
+- When the grasp succeeds, the rest of the task (transport + place) almost always succeeds.
+- Sometimes the gripper place the object at the edge of the basket.
