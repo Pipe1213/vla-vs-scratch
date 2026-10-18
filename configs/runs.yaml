@@ -58,6 +58,7 @@ methods:
       - --num_workers=6
       - --job.target=l4x1
       - --job.timeout=3h
+      - --job.detach=true          # submit and return; jobs run in parallel in the cloud
       - '--rename_map={"observation.images.image": "observation.images.camera1", "observation.images.image2": "observation.images.camera2"}'
     eval_checkpoints: ["003000", "004000", "005000"]
     eval_args:
