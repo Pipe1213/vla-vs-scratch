@@ -50,6 +50,7 @@ methods:
     from: lerobot/smolvla_base (train_expert_only, frozen VLM)
     train_args:
       - --policy.path=lerobot/smolvla_base
+      - --policy.train_expert_only=true   # explicit (18 Oct): same as pilot and LeRobot default; ~100M of 450M trainable
       - --policy.private=true
       - --batch_size=32
       - --steps=5000

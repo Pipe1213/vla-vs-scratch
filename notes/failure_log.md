@@ -104,6 +104,24 @@ Sweep context (20 eps each, open-loop default): 20k 10/20, 40k 3/20, 60k 5/20, 8
 
 ---
 
+## ACT · t1 (sim task 3, bbq sauce) · 5 demos · Phase 2 smoke test
+
+### Checkpoint 10k (n_action_steps=10), 2 episodes · watched Sun 18 Oct
+
+First grid run (`act_obj_t1_n05`, 10k steps, ~110 epochs over 685 frames). 2-episode pipeline test, written to `outputs/smoke.csv` (not part of `results.csv`; the real 3 × 50-episode evaluation runs separately).
+
+| Ckpt | Episode | Result | Codes | Notes |
+|---|---|---|---|---|
+| 10K | 0 | 0 | G-MISS | Goes for the correct object (bbq sauce) but fails to pick it up; episode runs to the time limit (27 s/ep) |
+| 10K | 1 | 0 | G-MISS | Same: correct target, pick fails, episode runs to the time limit |
+
+Impressions:
+- With 5 demos ACT still **identifies and reaches the right object**: the failure is grasp precision, not perception or wrong-task data (confirms the 5-episode split points at the right task).
+- Same first failure point as the all-demos pilot (the grasp), so far. Check in Phase 4 whether low-data failures shift toward G-MISS / RETRY-FAIL / TIMEOUT (vs PLACE at all demos), and whether ACT retries after a miss at 5 demos.
+- 2 episodes say nothing statistically (CI 0–66%); the score comes from the 150-episode evaluation.
+
+---
+
 ## SmolVLA · t1 · all 46 demos · pilot
 
 ### Checkpoints 5k / 10k / 15k / 20k (n_action_steps=10) · watched Sun 18 Oct

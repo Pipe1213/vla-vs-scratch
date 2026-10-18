@@ -36,16 +36,28 @@ def ckpt_path(run_name: str, ckpt: str) -> Path:
 
 
 def download_smolvla(run_name: str, ckpts: list[str]):
-    """LeRobot appends a timestamp to the Hub repo name; take the newest matching repo."""
+    """Find the run's Hub repo and download only the eval checkpoints' pretrained_model.
+
+    train_grid passes --policy.repo_id=<user>/<run>, and LeRobot (b9cb121, jobs/hf.py) uses
+    that name as-is (no timestamp). Fallback: <run>_<YYYY-MM-DD_HH-MM-SS> (newest) if a run was
+    submitted without repo_id. Never a prefix match: smolvla_obj_t1_nall would also match the
+    pilot repo smolvla_obj_t1_nall_pilot_<timestamp>.
+    """
+    import re
+
     from huggingface_hub import HfApi, snapshot_download
 
     api = HfApi()
     me = api.whoami()["name"]
-    repos = sorted(m.id for m in api.list_models(author=me, search=run_name) if m.id.split("/")[1].startswith(run_name))
-    if not repos:
-        print(f"  [warn] no Hub repo found for {run_name}")
+    names = {m.id.split("/")[1] for m in api.list_models(author=me, search=run_name)}
+    stamped = re.compile(re.escape(run_name) + r"_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}$")
+    if run_name in names:
+        repo = f"{me}/{run_name}"
+    elif any(stamped.match(n) for n in names):
+        repo = f"{me}/{sorted(n for n in names if stamped.match(n))[-1]}"
+    else:
+        print(f"  [warn] no Hub repo found for {run_name} (looked for {me}/{run_name})")
         return
-    repo = repos[-1]
     patterns = [f"checkpoints/{c}/pretrained_model/*" for c in ckpts]
     print(f"  downloading {repo} ({', '.join(ckpts)})")
     snapshot_download(repo, allow_patterns=patterns, local_dir=ROOT / "outputs/train" / run_name)
