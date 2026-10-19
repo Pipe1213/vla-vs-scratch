@@ -3,3 +3,15 @@ date,run,method,task,n_demos,steps,where,hardware,hours,cost_usd,notes
 2026-10-17,act_obj_t1_nall_pilot,act,t1,all,100000,laptop,RTX 4050 6GB,4.75,0,pilot; 5.9 steps/s; ckpt every 20k
 2026-10-17,smolvla_obj_t1_nall_pilot,smolvla,t1,all,20000,hf_jobs,l4x1 L4 24GB,5.6,4.48,pilot; 1.07 steps/s; ckpt every 5k pushed to Hub; billed time
 2026-10-18,act_obj_t1_nall_pilot30k,act,t1,all,30000,laptop,RTX 4050 6GB,1.45,0,pilot; ckpt every 5k
+2026-10-18,act_obj_t1_n05,act,t1,5,10000,laptop,RTX 4050 6GB,0.58,0,Phase 2 grid run
+2026-10-18,act_obj_t1_n10,act,t1,10,10000,laptop,RTX 4050 6GB,0.42,0,Phase 2 grid run
+2026-10-18,act_obj_t1_n20,act,t1,20,10000,laptop,RTX 4050 6GB,0.44,0,Phase 2 grid run
+2026-10-18,act_obj_t1_nall,act,t1,all,10000,laptop,RTX 4050 6GB,0.45,0,Phase 2 grid run
+2026-10-18,act_obj_t2_n05,act,t2,5,10000,laptop,RTX 4050 6GB,0.42,0,Phase 2 grid run
+2026-10-18,act_obj_t2_n10,act,t2,10,10000,laptop,RTX 4050 6GB,0.43,0,Phase 2 grid run
+2026-10-18,act_obj_t2_n20,act,t2,20,10000,laptop,RTX 4050 6GB,0.42,0,Phase 2 grid run
+2026-10-18,act_obj_t2_nall,act,t2,all,10000,laptop,RTX 4050 6GB,0.44,0,Phase 2 grid run
+2026-10-18,act_obj_t3_n05,act,t3,5,10000,laptop,RTX 4050 6GB,0.41,0,Phase 2 grid run
+2026-10-18,act_obj_t3_n10,act,t3,10,10000,laptop,RTX 4050 6GB,0.4,0,Phase 2 grid run
+2026-10-19,act_obj_t3_n20,act,t3,20,10000,laptop,RTX 4050 6GB,0.4,0,Phase 2 grid run
+2026-10-19,act_obj_t3_nall,act,t3,all,10000,laptop,RTX 4050 6GB,0.4,0,Phase 2 grid run
