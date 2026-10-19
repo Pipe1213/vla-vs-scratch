@@ -122,6 +122,21 @@ Impressions:
 
 ---
 
+## ACT · t2 (sim task 6, butter) · all 45 demos · Phase 2 grid
+
+### Checkpoint 10k (n_action_steps=10), episodes 0–9 · watched Mon 19 Oct
+
+Context: t2 is ACT's weakest task (all demos 50/150 = 33%, no better than 20 demos at 55/150 = 37%); `smolvla_libero` scored 10/10 on this task in the sanity check, so the task is not hard in general.
+
+General impressions (not yet coded episode by episode):
+- The arm **goes to the correct object** and **retries after a failed grasp** (closed loop works).
+- Main failure: **grasping the butter** (G-MISS, or grabs it badly and it slips: G-SLIP). The butter is a **small, flat bar**, lower than the other objects, so the gripper has little height to close on. Working hypothesis: object geometry, i.e. a precision problem, not perception.
+- **Retries did not succeed** in the videos watched (→ RETRY-FAIL). By contrast, SmolVLA in the pilot and the sanity check often recovered after a miss (successes coded `(G-MISS)`).
+
+**Hypothesis to test in Phase 4: ACT retries but rarely recovers; SmolVLA recovers more often.** Measure it as a *recovery rate* per method = successes after at least one missed or dropped grasp ÷ episodes with at least one missed or dropped grasp, from the coded videos (episodes 0–9 of each evaluation). Counter-example to keep in mind: in the Phase 1 pilot (t1, `n_action_steps=20`) one ACT episode dropped the object, went back and re-grasped it, so "never" is too strong until counted.
+
+---
+
 ## SmolVLA · t1 · all 46 demos · pilot
 
 ### Checkpoints 5k / 10k / 15k / 20k (n_action_steps=10) · watched Sun 18 Oct
