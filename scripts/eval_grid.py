@@ -38,10 +38,11 @@ def ckpt_path(run_name: str, ckpt: str) -> Path:
 def download_smolvla(run_name: str, ckpts: list[str]):
     """Find the run's Hub repo and download only the eval checkpoints' pretrained_model.
 
-    train_grid passes --policy.repo_id=<user>/<run>, and LeRobot (b9cb121, jobs/hf.py) uses
-    that name as-is (no timestamp). Fallback: <run>_<YYYY-MM-DD_HH-MM-SS> (newest) if a run was
-    submitted without repo_id. Never a prefix match: smolvla_obj_t1_nall would also match the
-    pilot repo smolvla_obj_t1_nall_pilot_<timestamp>.
+    Observed 19 Oct: with --policy.path (fine-tuning from smolvla_base), LeRobot's HF Jobs
+    submission (b9cb121, jobs/hf.py) ignores --policy.repo_id and names the repo
+    <user>/<run>_<YYYY-MM-DD_HH-MM-SS>; the newest such repo is used. An exact <user>/<run>
+    repo is preferred if it exists. Never a plain prefix match: smolvla_obj_t1_nall would also
+    match the pilot repo smolvla_obj_t1_nall_pilot_<timestamp>.
     """
     import re
 
