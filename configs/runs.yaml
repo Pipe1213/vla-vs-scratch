@@ -11,7 +11,11 @@ lerobot_version: "0.6.2"
 suite: libero_object
 tasks: {t1: 3, t2: 6, t3: 8}     # label -> simulator task id (--env.task_ids)
 demo_sizes: ["5", "10", "20", "all"]
-training_seed: 1000
+training_seed: 1000                # seed 1 (original grid, run names without suffix)
+# Second training seed added 20 Oct, after the seed-1 results (SmolVLA per-task curves were
+# non-monotonic; 1 seed cannot separate data effects from training-run randomness). Applied to
+# every run of both methods, same settings otherwise; logged as a deviation in the README.
+training_seeds: {1: 1000, 2: 2000}  # seed index -> --seed; index > 1 adds "_s<index>" to run names
 # Same number of training steps for every demo size (fixed-steps rule).
 
 evaluation:                       # identical for both methods (fairness rules 3, 7, 8)

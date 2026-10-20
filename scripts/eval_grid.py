@@ -12,6 +12,8 @@ Usage (repo root, `lerobot` env, MUJOCO_GL=egl):
   python scripts/eval_grid.py --method act --only act_obj_t1_n05
   python scripts/eval_grid.py --method smolvla --download # Phase 3: fetch checkpoints from the Hub first
   python scripts/eval_grid.py --method act --summary      # print per-run means from results.csv
+  python scripts/eval_grid.py --method act --seed-index 2  # evaluate the 2nd-seed runs (*_s2)
+Evaluation settings (scenes, seed 1000, 256 px, n_action_steps) are identical for every training seed.
 
 Do not run while a training run is using the GPU (results stay valid, but both slow down).
 """
@@ -86,6 +88,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--download", action="store_true", help="SmolVLA: download eval checkpoints from the Hub first")
     ap.add_argument("--summary", action="store_true")
+    ap.add_argument("--seed-index", type=int, default=1, help="training seed index (1 = original grid, 2 = *_s2 runs)")
     args = ap.parse_args()
 
     if args.summary:
@@ -95,7 +98,7 @@ def main():
     m = cfg["methods"][args.method]
     ckpts = m["eval_checkpoints"]
     episodes = cfg["evaluation"]["episodes_per_checkpoint"]
-    runs = runs_for(args.method, cfg, splits)
+    runs = runs_for(args.method, cfg, splits, args.seed_index)
     if args.only:
         runs = [r for r in runs if r["name"] in set(args.only)]
 

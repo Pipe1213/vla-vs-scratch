@@ -9,6 +9,7 @@ Usage (repo root, `lerobot` env):
   python scripts/train_grid.py --method act                # train all 12 ACT runs (skips finished ones)
   python scripts/train_grid.py --method act --only act_obj_t1_n05   # one run
   python scripts/train_grid.py --method smolvla --dry-run  # Phase 3
+  python scripts/train_grid.py --method act --seed-index 2 # 2nd training seed (runs named *_s2)
 
 Resumable: a run is "done" when its last eval checkpoint exists (ACT) or its job was
 submitted (SmolVLA, recorded in outputs/logs/submitted_jobs.txt). Re-running the
@@ -45,13 +46,22 @@ def load():
     return cfg, splits
 
 
-def runs_for(method: str, cfg, splits):
+def seed_for(cfg, seed_index: int) -> int:
+    seeds = cfg.get("training_seeds", {1: cfg["training_seed"]})
+    assert seed_index in seeds, f"seed index {seed_index} not in runs.yaml training_seeds {seeds}"
+    return int(seeds[seed_index])
+
+
+def runs_for(method: str, cfg, splits, seed_index: int = 1):
+    """Seed 1 keeps the original names (act_obj_t1_n05); seed k > 1 adds _s<k> (act_obj_t1_n05_s2)."""
+    suffix = "" if seed_index == 1 else f"_s{seed_index}"
     out = []
     for t_label in cfg["tasks"]:                      # t1, t2, t3
         for size in cfg["demo_sizes"]:                # 5, 10, 20, all
-            name = f"{method}_obj_{t_label}_{SIZE_TAG[size]}"
+            name = f"{method}_obj_{t_label}_{SIZE_TAG[size]}{suffix}"
             eps = splits["tasks"][t_label]["splits"][size]
-            out.append({"name": name, "task": t_label, "size": size, "episodes": eps})
+            out.append({"name": name, "task": t_label, "size": size, "episodes": eps,
+                        "seed_index": seed_index, "seed": seed_for(cfg, seed_index)})
     return out
 
 
@@ -62,7 +72,7 @@ def train_cmd(method: str, run: dict, cfg) -> list[str]:
         f"--dataset.repo_id={cfg['dataset']['repo_id']}",
         f"--dataset.revision={cfg['dataset']['revision']}",
         f"--dataset.episodes={json.dumps(run['episodes'])}",
-        f"--seed={cfg['training_seed']}",
+        f"--seed={run['seed']}",
         "--log_freq=200",
         f"--output_dir=outputs/train/{run['name']}",
         f"--job_name={run['name']}",
@@ -104,6 +114,7 @@ def prune_act(run, cfg):
 
 
 def log_compute(run, method, steps, hours, where, hardware, notes):
+    notes = f"{notes}; seed {run['seed']}"
     path = ROOT / "results/compute_log.csv"
     with open(path, "a", newline="") as f:
         csv.writer(f).writerow([dt.date.today().isoformat(), run["name"], method, run["task"],
@@ -115,10 +126,12 @@ def main():
     ap.add_argument("--method", choices=["act", "smolvla"], required=True)
     ap.add_argument("--only", nargs="*", help="run names to train (default: all 12)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--seed-index", type=int, default=1, help="training seed index from runs.yaml (1 = original grid)")
     args = ap.parse_args()
 
     cfg, splits = load()
-    runs = runs_for(args.method, cfg, splits)
+    runs = runs_for(args.method, cfg, splits, args.seed_index)
+    print(f"training seed index {args.seed_index} -> --seed={seed_for(cfg, args.seed_index)}\n")
     if args.only:
         runs = [r for r in runs if r["name"] in set(args.only)]
         assert runs, f"no run matches {args.only}"
@@ -169,7 +182,8 @@ def main():
             print(f"  submitted; job id / repo in {log_path}")
 
     if not args.dry_run:
-        print("\nAll done. Check: python scripts/train_grid.py --method", args.method, "--dry-run  (should list every run as [done])")
+        print("\nAll done. Check: python scripts/train_grid.py --method", args.method, "--seed-index", args.seed_index,
+              "--dry-run  (should list every run as [done])")
 
 
 if __name__ == "__main__":
