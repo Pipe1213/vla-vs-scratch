@@ -44,6 +44,7 @@ methods:
       - --steps=10000
       - --save_freq=2000
       - --num_workers=4
+      - --wandb.disable_artifact=true   # added 21 Oct: logging only (no checkpoint upload to wandb; slow mobile uplink stalled runs at exit)
     eval_checkpoints: ["006000", "008000", "010000"]
     eval_args:
       - --policy.n_action_steps=10
