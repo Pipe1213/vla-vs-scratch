@@ -17,7 +17,7 @@ Only repos named like the experiment are touched:
 Usage (repo root, `lerobot` env, logged in with `hf auth login`):
   python scripts/hub_cleanup.py                 # dry run: sizes and what would be deleted
   python scripts/hub_cleanup.py --apply         # delete + squash
-  python scripts/hub_cleanup.py --apply --make-public   # also make the seed-1 grid repos public
+  python scripts/hub_cleanup.py --apply --make-public   # also make the grid repos public (all seeds; never the pilot)
                                                 # (public storage has its own, much larger quota)
 Run it only when no job is still pushing to these repos.
 """
@@ -35,7 +35,6 @@ from train_grid import load  # noqa: E402
 
 STAMP = r"_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}$"
 GRID = re.compile(r"^smolvla_obj_t[123]_n(05|10|20|all)(_s\d+)?" + STAMP)
-SEED1 = re.compile(r"^smolvla_obj_t[123]_n(05|10|20|all)" + STAMP)
 PILOT = re.compile(r"^smolvla_obj_t1_nall_pilot" + STAMP)
 CKPT = re.compile(r"^checkpoints/(\d{6})/")
 
@@ -47,7 +46,7 @@ def gb(n: int) -> str:
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true", help="really delete (default: dry run)")
-    ap.add_argument("--make-public", action="store_true", help="make the cleaned seed-1 grid repos public")
+    ap.add_argument("--make-public", action="store_true", help="make the cleaned grid repos public (all seeds; the pilot stays private)")
     args = ap.parse_args()
 
     from huggingface_hub import CommitOperationDelete, HfApi
@@ -88,7 +87,7 @@ def main():
                               commit_message="Remove non-evaluated checkpoints and optimizer state")
             api.super_squash_history(repo, repo_type="model")
             print("    deleted + history squashed")
-        if args.make_public and SEED1.match(name):
+        if args.make_public and GRID.match(name):
             try:
                 api.update_repo_settings(repo, private=False)
             except AttributeError:            # older huggingface_hub
