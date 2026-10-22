@@ -15,7 +15,10 @@ training_seed: 1000                # seed 1 (original grid, run names without su
 # Second training seed added 20 Oct, after the seed-1 results (SmolVLA per-task curves were
 # non-monotonic; 1 seed cannot separate data effects from training-run randomness). Applied to
 # every run of both methods, same settings otherwise; logged as a deviation in the README.
-training_seeds: {1: 1000, 2: 2000}  # seed index -> --seed; index > 1 adds "_s<index>" to run names
+# Third training seed added 22 Oct, ACT only (largest seed-to-seed variance, up to 45 points;
+# SmolVLA's 2 seeds agree within 11 points and the cloud budget is spent). Decided before any
+# seed-3 result: included in ACT's per-seed points and mean whatever it shows.
+training_seeds: {1: 1000, 2: 2000, 3: 3000}  # seed index -> --seed; index > 1 adds "_s<index>" to run names
 # Same number of training steps for every demo size (fixed-steps rule).
 
 evaluation:                       # identical for both methods (fairness rules 3, 7, 8)
