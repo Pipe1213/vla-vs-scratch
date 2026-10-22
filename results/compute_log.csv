@@ -16,14 +16,38 @@ date,run,method,task,n_demos,steps,where,hardware,hours,cost_usd,notes
 2026-10-19,act_obj_t3_n20,act,t3,20,10000,laptop,RTX 4050 6GB,0.4,0,Phase 2 grid run
 2026-10-19,act_obj_t3_nall,act,t3,all,10000,laptop,RTX 4050 6GB,0.4,0,Phase 2 grid run
 2026-10-21,act_obj_t1_n05_s2,act,t1,5,10000,laptop,RTX 4050 6GB,0.43,0,Phase 3b grid run; seed 2000
-2026-10-21,act_obj_t1_n10_s2,act,t1,10,10000,laptop,RTX 4050 6GB,0.43,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t1_n20_s2,act,t1,20,10000,laptop,RTX 4050 6GB,0.43,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t1_nall_s2,act,t1,all,10000,laptop,RTX 4050 6GB,0.43,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t2_n05_s2,act,t2,5,10000,laptop,RTX 4050 6GB,0.42,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t2_n10_s2,act,t2,10,10000,laptop,RTX 4050 6GB,0.44,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t2_n20_s2,act,t2,20,10000,laptop,RTX 4050 6GB,0.43,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t2_nall_s2,act,t2,all,10000,laptop,RTX 4050 6GB,0.43,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t3_n05_s2,act,t3,5,10000,laptop,RTX 4050 6GB,0.42,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t3_n10_s2,act,t3,10,10000,laptop,RTX 4050 6GB,0.42,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t3_n20_s2,act,t3,20,10000,laptop,RTX 4050 6GB,0.42,0,Phase 2 grid run; seed 2000
-2026-10-21,act_obj_t3_nall_s2,act,t3,all,10000,laptop,RTX 4050 6GB,0.42,0,Phase 2 grid run; seed 2000
+2026-10-21,act_obj_t1_n10_s2,act,t1,10,10000,laptop,RTX 4050 6GB,0.43,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t1_n20_s2,act,t1,20,10000,laptop,RTX 4050 6GB,0.43,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t1_nall_s2,act,t1,all,10000,laptop,RTX 4050 6GB,0.43,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t2_n05_s2,act,t2,5,10000,laptop,RTX 4050 6GB,0.42,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t2_n10_s2,act,t2,10,10000,laptop,RTX 4050 6GB,0.44,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t2_n20_s2,act,t2,20,10000,laptop,RTX 4050 6GB,0.43,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t2_nall_s2,act,t2,all,10000,laptop,RTX 4050 6GB,0.43,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t3_n05_s2,act,t3,5,10000,laptop,RTX 4050 6GB,0.42,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t3_n10_s2,act,t3,10,10000,laptop,RTX 4050 6GB,0.42,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t3_n20_s2,act,t3,20,10000,laptop,RTX 4050 6GB,0.42,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-21,act_obj_t3_nall_s2,act,t3,all,10000,laptop,RTX 4050 6GB,0.42,0,Phase 3b grid run (2nd seed); seed 2000
+2026-10-18,smolvla_obj_t1_n05,smolvla,t1,5,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t1_n10,smolvla,t1,10,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t1_n20,smolvla,t1,20,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t1_nall,smolvla,t1,all,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t2_n05,smolvla,t2,5,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t2_n10,smolvla,t2,10,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t2_n20,smolvla,t2,20,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t2_nall,smolvla,t2,all,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t3_n05,smolvla,t3,5,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t3_n10,smolvla,t3,10,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t3_n20,smolvla,t3,20,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-18,smolvla_obj_t3_nall,smolvla,t3,all,5000,hf_jobs,l4x1 L4 24GB,1.49,1.19,Phase 3 grid run; seed 1000; cost = batch total $14.26 (credit balance 26.50 -> 12.24) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t1_n05_s2,smolvla,t1,5,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t1_n10_s2,smolvla,t1,10,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t1_n20_s2,smolvla,t1,20,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t1_nall_s2,smolvla,t1,all,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t2_n05_s2,smolvla,t2,5,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t2_n10_s2,smolvla,t2,10,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t2_n20_s2,smolvla,t2,20,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t2_nall_s2,smolvla,t2,all,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t3_n05_s2,smolvla,t3,5,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t3_n10_s2,smolvla,t3,10,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t3_n20_s2,smolvla,t3,20,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-21,smolvla_obj_t3_nall_s2,smolvla,t3,all,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
