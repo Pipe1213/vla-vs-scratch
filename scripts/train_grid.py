@@ -10,6 +10,7 @@ Usage (repo root, `lerobot` env):
   python scripts/train_grid.py --method act --only act_obj_t1_n05   # one run
   python scripts/train_grid.py --method smolvla --dry-run  # Phase 3
   python scripts/train_grid.py --method act --seed-index 2 # 2nd training seed (runs named *_s2)
+  python scripts/train_grid.py --method act --diag act_t2_long   # diagnostic runs (runs.yaml `diagnostics`), not grid
 
 Resumable: a run is "done" when its last eval checkpoint exists (ACT) or its job was
 submitted (SmolVLA, recorded in outputs/logs/submitted_jobs.txt). Re-running the
@@ -65,6 +66,23 @@ def runs_for(method: str, cfg, splits, seed_index: int = 1):
     return out
 
 
+def runs_for_diag(cfg, splits, key: str):
+    """Runs of a diagnostic from runs.yaml `diagnostics` (not part of the grid)."""
+    d = cfg["diagnostics"][key]
+    out = []
+    for k in d["seed_indices"]:
+        name = d["name"] + ("" if k == 1 else f"_s{k}")
+        out.append({"name": name, "task": d["task"], "size": d["size"],
+                    "episodes": splits["tasks"][d["task"]]["splits"][d["size"]],
+                    "seed_index": k, "seed": seed_for(cfg, k), "steps": int(d["steps"]),
+                    "eval_checkpoints": list(d["eval_checkpoints"]), "diag": key})
+    return out
+
+
+def eval_ckpts(run, cfg, method: str = "act") -> list[str]:
+    return run.get("eval_checkpoints") or cfg["methods"][method]["eval_checkpoints"]
+
+
 def train_cmd(method: str, run: dict, cfg) -> list[str]:
     m = cfg["methods"][method]
     common = [
@@ -79,6 +97,8 @@ def train_cmd(method: str, run: dict, cfg) -> list[str]:
         "--wandb.enable=true",
     ]
     extra = list(m["train_args"])
+    if "steps" in run:   # diagnostic override
+        extra = [f"--steps={run['steps']}" if a.startswith("--steps=") else a for a in extra]
     if method == "smolvla":
         extra.append(f"--policy.repo_id=Pipe1213/{run['name']}")
     return common + extra
@@ -89,12 +109,12 @@ def ckpt_dir(run) -> Path:
 
 
 def is_done_act(run, cfg) -> bool:
-    last = cfg["methods"]["act"]["eval_checkpoints"][-1]
+    last = eval_ckpts(run, cfg)[-1]
     return (ckpt_dir(run) / last / "pretrained_model" / "model.safetensors").exists()
 
 
 def prune_act(run, cfg):
-    keep = set(cfg["methods"]["act"]["eval_checkpoints"])
+    keep = set(eval_ckpts(run, cfg))
     freed = 0
     for d in sorted(ckpt_dir(run).iterdir()):
         if d.is_symlink() or not d.is_dir():
@@ -127,11 +147,19 @@ def main():
     ap.add_argument("--only", nargs="*", help="run names to train (default: all 12)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--seed-index", type=int, default=1, help="training seed index from runs.yaml (1 = original grid)")
+    ap.add_argument("--diag", help="train a diagnostic from runs.yaml `diagnostics` instead of the grid (all its seeds)")
     args = ap.parse_args()
 
     cfg, splits = load()
-    runs = runs_for(args.method, cfg, splits, args.seed_index)
-    print(f"training seed index {args.seed_index} -> --seed={seed_for(cfg, args.seed_index)}\n")
+    if args.diag:
+        assert cfg["diagnostics"][args.diag]["method"] == args.method, "--method must match the diagnostic's method"
+        assert args.method == "act", "diagnostics are only implemented for ACT (laptop) runs"
+        runs = runs_for_diag(cfg, splits, args.diag)
+        print(f"diagnostic {args.diag} (not part of the grid): {len(runs)} run(s), steps {runs[0]['steps']}, "
+              f"seeds {[r['seed'] for r in runs]}\n")
+    else:
+        runs = runs_for(args.method, cfg, splits, args.seed_index)
+        print(f"training seed index {args.seed_index} -> --seed={seed_for(cfg, args.seed_index)}\n")
     if args.only:
         runs = [r for r in runs if r["name"] in set(args.only)]
         assert runs, f"no run matches {args.only}"
@@ -172,7 +200,10 @@ def main():
                 continue
             print(f"  finished in {hours * 60:.0f} min")
             prune_act(r, cfg)
-            log_compute(r, "act", steps, hours, "laptop", "RTX 4050 6GB", "Phase 2 grid run")
+            if "diag" in r:
+                log_compute(r, "act", r["steps"], hours, "laptop", "RTX 4050 6GB", f"diagnostic {r['diag']} (not grid)")
+            else:
+                log_compute(r, "act", steps, hours, "laptop", "RTX 4050 6GB", f"grid run, seed index {r['seed_index']}")
         else:
             if ret != 0:
                 print(f"  submission FAILED (exit {ret}); see {log_path}")
@@ -182,7 +213,8 @@ def main():
             print(f"  submitted; job id / repo in {log_path}")
 
     if not args.dry_run:
-        print("\nAll done. Check: python scripts/train_grid.py --method", args.method, "--seed-index", args.seed_index,
+        which = f"--diag {args.diag}" if args.diag else f"--seed-index {args.seed_index}"
+        print(f"\nAll done. Check: python scripts/train_grid.py --method {args.method} {which} "
               "--dry-run  (should list every run as [done])")
 
 

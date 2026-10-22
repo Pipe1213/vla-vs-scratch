@@ -13,6 +13,7 @@ Usage (repo root, `lerobot` env, MUJOCO_GL=egl):
   python scripts/eval_grid.py --method smolvla --download # Phase 3: fetch checkpoints from the Hub first
   python scripts/eval_grid.py --method act --summary      # print per-run means from results.csv
   python scripts/eval_grid.py --method act --seed-index 2  # evaluate the 2nd-seed runs (*_s2)
+  python scripts/eval_grid.py --method act --diag act_t2_long   # diagnostic runs -> their own results file
 Evaluation settings (scenes, seed 1000, 256 px, n_action_steps) are identical for every training seed.
 
 Do not run while a training run is using the GPU (results stay valid, but both slow down).
@@ -28,7 +29,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from train_grid import ROOT, load, runs_for  # noqa: E402
+from train_grid import ROOT, eval_ckpts, load, runs_for, runs_for_diag  # noqa: E402
 
 OUT = "results/results.csv"
 
@@ -66,8 +67,8 @@ def download_smolvla(run_name: str, ckpts: list[str]):
     snapshot_download(repo, allow_patterns=patterns, local_dir=ROOT / "outputs/train" / run_name)
 
 
-def summary(method: str):
-    path = ROOT / OUT
+def summary(method: str, out: str = OUT):
+    path = ROOT / out
     if not path.exists():
         print("no results yet"); return
     agg = defaultdict(lambda: [0, 0, []])
@@ -89,20 +90,27 @@ def main():
     ap.add_argument("--download", action="store_true", help="SmolVLA: download eval checkpoints from the Hub first")
     ap.add_argument("--summary", action="store_true")
     ap.add_argument("--seed-index", type=int, default=1, help="training seed index (1 = original grid, 2 = *_s2 runs)")
+    ap.add_argument("--diag", help="evaluate a diagnostic from runs.yaml `diagnostics` (own results file, not results.csv)")
     args = ap.parse_args()
 
-    if args.summary:
-        return summary(args.method)
-
     cfg, splits = load()
+    out = cfg["diagnostics"][args.diag]["results"] if args.diag else OUT
+    if args.summary:
+        return summary(args.method, out)
+
     m = cfg["methods"][args.method]
-    ckpts = m["eval_checkpoints"]
     episodes = cfg["evaluation"]["episodes_per_checkpoint"]
-    runs = runs_for(args.method, cfg, splits, args.seed_index)
+    if args.diag:
+        assert cfg["diagnostics"][args.diag]["method"] == args.method, "--method must match the diagnostic's method"
+        runs = runs_for_diag(cfg, splits, args.diag)
+        print(f"diagnostic {args.diag} -> {out} (not part of the grid results)")
+    else:
+        runs = runs_for(args.method, cfg, splits, args.seed_index)
     if args.only:
         runs = [r for r in runs if r["name"] in set(args.only)]
 
     for r in runs:
+        ckpts = eval_ckpts(r, cfg, args.method)
         if args.download and args.method == "smolvla" and not args.dry_run:
             download_smolvla(r["name"], ckpts)
         paths = [ckpt_path(r["name"], c) for c in ckpts]
@@ -111,7 +119,7 @@ def main():
             print(f"[skip] {r['name']}: not trained/downloaded yet ({len(missing)} checkpoint(s) missing)")
             continue
         cmd = [sys.executable, "scripts/eval_sweep.py", "--name", r["name"],
-               "--task-id", str(cfg["tasks"][r["task"]]), "--episodes", str(episodes), "--out", OUT,
+               "--task-id", str(cfg["tasks"][r["task"]]), "--episodes", str(episodes), "--out", out,
                *[str(p.relative_to(ROOT)) for p in paths], "--", *m["eval_args"]]
         print(f"\n=== {r['name']} (sim task {cfg['tasks'][r['task']]}, {len(r['episodes'])} demos) ===")
         if args.dry_run:
@@ -119,7 +127,7 @@ def main():
         subprocess.run(cmd, cwd=ROOT)
 
     if not args.dry_run:
-        print(); summary(args.method)
+        print(); summary(args.method, out)
 
 
 if __name__ == "__main__":

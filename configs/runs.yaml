@@ -75,6 +75,20 @@ methods:
       - '--rename_map={"observation.images.image": "observation.images.camera1", "observation.images.image2": "observation.images.camera2"}'
     pilot: {steps_per_s: 1.07, est_usd_per_run: 1.2, eval_min_per_50eps: 19}
 
+# Diagnostics: extra runs, NOT part of the grid or the headline results. Own results file.
+# Same settings as the grid run they extend, unless overridden here.
+diagnostics:
+  act_t2_long:   # decided 22 Oct: is ACT's flat t2 (butter) curve under-training? 3x the steps, all 3 seeds
+    method: act
+    task: t2
+    size: all
+    name: act_obj_t2_nall_30k            # seed k > 1 adds _s<k>
+    seed_indices: [1, 2, 3]              # same seeds as the ACT grid runs it is compared with
+    steps: 30000                         # grid: 10000 (ACT LR is constant, no schedule, so 10k here ~ the grid run)
+    eval_checkpoints: ["010000", "020000", "026000", "028000", "030000"]
+    # 026000/028000/030000 = last-3 average (same rule as the grid); 010000/020000 = curve over steps
+    results: results/diagnostics.csv
+
 runs:
   naming: "<method>_obj_<task label>_n<size>"   # e.g. act_obj_t1_n05, smolvla_obj_t3_nall
   count: 24                                      # 2 methods x 3 tasks x 4 sizes
