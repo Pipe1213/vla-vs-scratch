@@ -51,3 +51,15 @@ date,run,method,task,n_demos,steps,where,hardware,hours,cost_usd,notes
 2026-10-21,smolvla_obj_t3_n10_s2,smolvla,t3,10,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
 2026-10-21,smolvla_obj_t3_n20_s2,smolvla,t3,20,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
 2026-10-21,smolvla_obj_t3_nall_s2,smolvla,t3,all,5000,hf_jobs,l4x1 L4 24GB,1.36,1.09,Phase 3b grid run (2nd seed); seed 2000; cost = batch total $13.09 (credit balance 17.24 -> 4.15) / 12; hours = cost / $0.80/h
+2026-10-23,act_obj_t1_n05_s3,act,t1,5,10000,laptop,RTX 4050 6GB,0.37,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t1_n10_s3,act,t1,10,10000,laptop,RTX 4050 6GB,0.37,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t1_n20_s3,act,t1,20,10000,laptop,RTX 4050 6GB,0.37,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t1_nall_s3,act,t1,all,10000,laptop,RTX 4050 6GB,0.37,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t2_n05_s3,act,t2,5,10000,laptop,RTX 4050 6GB,0.38,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t2_n10_s3,act,t2,10,10000,laptop,RTX 4050 6GB,0.36,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t2_n20_s3,act,t2,20,10000,laptop,RTX 4050 6GB,0.36,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t2_nall_s3,act,t2,all,10000,laptop,RTX 4050 6GB,0.38,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t3_n05_s3,act,t3,5,10000,laptop,RTX 4050 6GB,0.37,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t3_n10_s3,act,t3,10,10000,laptop,RTX 4050 6GB,0.36,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t3_n20_s3,act,t3,20,10000,laptop,RTX 4050 6GB,0.38,0,"grid run, seed index 3; seed 3000"
+2026-10-23,act_obj_t3_nall_s3,act,t3,all,10000,laptop,RTX 4050 6GB,0.38,0,"grid run, seed index 3; seed 3000"
