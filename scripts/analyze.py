@@ -6,6 +6,7 @@
 Reads   results/results.csv (grid), results/diagnostics.csv (butter 30k runs, reported separately),
         results/compute_log.csv, configs/runs.yaml, configs/splits.json
 Writes  results/figures/{headline,per_task,stability,scenes}.{png,svg}
+        (+ failure analysis from notes/failure_codes.csv once videos are coded with scripts/code_videos.py)
         results/analysis.md     all tables, README-ready
         results/summary.json    every number quoted in the README / PDF / site (copy from here, never by hand)
 
@@ -37,6 +38,11 @@ from matplotlib.patches import Patch  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS, DIAG, COMPUTE = (ROOT / "results" / f for f in ("results.csv", "diagnostics.csv", "compute_log.csv"))
 RUNS_YAML, SPLITS = ROOT / "configs" / "runs.yaml", ROOT / "configs" / "splits.json"
+CODING_SAMPLE, FAILURE_CODES = ROOT / "notes" / "coding_sample.csv", ROOT / "notes" / "failure_codes.csv"
+CODE_NAMES = ["G-MISS", "G-SLIP", "NO-RETRY", "RETRY-FAIL", "COLLIDE", "WRONG-OBJ", "PLACE", "TIMEOUT", "OTHER"]
+CELL_LABEL = {"act_n05": "ACT · 5 demos", "act_nall": "ACT · all demos", "act_t2_n10": "ACT · butter, 10 demos",
+              "smolvla_n05": "SmolVLA · 5 demos", "smolvla_nall": "SmolVLA · all demos",
+              "smolvla_t2_n10": "SmolVLA · butter, 10 demos"}
 FIG_DIR, MD_OUT, JSON_OUT = ROOT / "results" / "figures", ROOT / "results" / "analysis.md", ROOT / "results" / "summary.json"
 
 METHODS = ["smolvla", "act"]
@@ -326,6 +332,58 @@ def compute_summary(df: pd.DataFrame, diag: pd.DataFrame) -> dict:
     return out
 
 
+def failures() -> dict | None:
+    """Coded videos (notes/failure_codes.csv, from scripts/code_videos.py) -> failure types, retry and recovery
+    rates. Failures were over-sampled (10 failures + 5 successes per cell), so each coded video is weighted by
+    (episodes with that outcome in the cell's pool) / (coded videos with that outcome in the cell)."""
+    if not FAILURE_CODES.exists():
+        return None
+    fc = pd.read_csv(FAILURE_CODES, dtype=str, keep_default_na=False)
+    if fc.empty:
+        return None
+    sm = pd.read_csv(CODING_SAMPLE, dtype={"vid": str})
+    d = fc[["vid", "codes", "attempts", "flag"]].merge(sm, on="vid", how="inner", validate="one_to_one")
+    d["codes"] = d["codes"].map(lambda c: [x for x in c.split("+") if x])
+    d["miss"] = d["codes"].map(lambda c: "G-MISS" in c or "G-SLIP" in c)
+    d["retry"] = d["attempts"] != "1"
+    pool_n = np.where(d["success"] == 1, d["pool_succ"], d["pool_fail"])
+    coded_n = d.groupby(["cell", "success"])["vid"].transform("count")
+    d["w"] = pool_n / coded_n
+    rng = np.random.default_rng(RNG_SEED)
+
+    def rates(g):
+        """Weighted retry / recovery rate among episodes with a miss or drop, + stratified bootstrap 95% CI
+        (resampling videos within each (cell, outcome) stratum, keeping the weights)."""
+        def est(miss, w, retry, succ):  # arrays (..., n) -> rates (...)
+            den = (w * miss).sum(-1)
+            with np.errstate(invalid="ignore", divide="ignore"):
+                return (w * miss * retry).sum(-1) / den, (w * miss * succ).sum(-1) / den
+        cols = lambda x: [x[k].to_numpy(float) for k in ("miss", "w", "retry", "success")]
+        point = est(*cols(g))
+        B, parts = 2000, []
+        for _, x in g.groupby(["cell", "success"]):
+            idx = rng.integers(0, len(x), size=(B, len(x)))
+            parts.append([c[idx] for c in cols(x)])
+        boot = est(*[np.concatenate([p_[j] for p_ in parts], axis=1) for j in range(4)])
+        ci = [tuple(np.nanpercentile(b_, [2.5, 97.5])) if np.isfinite(b_).any() else (np.nan, np.nan) for b_ in boot]
+        return dict(n_coded=len(g), n_miss=int(g["miss"].sum()), n_miss_success=int((g["miss"] & (g["success"] == 1)).sum()),
+                    n_miss_retry=int((g["miss"] & g["retry"]).sum()),
+                    retry=float(point[0]), retry_ci=ci[0], recovery=float(point[1]), recovery_ci=ci[1])
+
+    out = dict(n_coded=len(d), n_sample=len(sm), n_flagged=int((d["flag"] == "1").sum()), cells={}, methods={})
+    for cell, g in d.groupby("cell"):
+        f = g[g["success"] == 0]
+        out["cells"][cell] = dict(
+            failures=len(f), successes=int((g["success"] == 1).sum()),
+            any={c: int(f["codes"].map(lambda x: c in x).sum()) for c in CODE_NAMES},
+            first={c: int(f["codes"].map(lambda x: bool(x) and x[0] == c).sum()) for c in CODE_NAMES},
+            clean_successes=int(((g["success"] == 1) & (g["codes"].map(len) == 0)).sum()),
+            **rates(g))
+    for m, g in d.groupby("method"):
+        out["methods"][m] = rates(g)
+    return out
+
+
 # --------------------------------------------------------------------------------------------- figures
 def style():
     plt.rcParams.update({
@@ -333,14 +391,15 @@ def style():
         "axes.labelcolor": INK_2, "xtick.color": INK_2, "ytick.color": INK_2, "text.color": INK,
         "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True, "grid.color": GRID,
         "grid.linewidth": 0.8, "axes.axisbelow": True, "figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
-        "savefig.facecolor": SURFACE, "legend.frameon": False, "svg.fonttype": "none",
+        "savefig.facecolor": SURFACE, "legend.frameon": False, "svg.fonttype": "none", "svg.hashsalt": "vla-vs-scratch",
     })
 
 
 def save(fig, name):
     FIG_DIR.mkdir(parents=True, exist_ok=True)
     for ext in ("png", "svg"):
-        fig.savefig(FIG_DIR / f"{name}.{ext}", dpi=200, bbox_inches="tight")
+        fig.savefig(FIG_DIR / f"{name}.{ext}", dpi=200, bbox_inches="tight",
+                    metadata={"Date": None} if ext == "svg" else {"Software": None})  # reproducible files
     plt.close(fig)
 
 
@@ -500,7 +559,7 @@ def size_label(s, n_all=None):
     return f"all ({n_all})" if s == "all" and n_all else s
 
 
-def report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all) -> str:
+def report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl=None) -> str:
     out = ["# Results analysis", "",
            "Generated by `scripts/analyze.py` from `results/results.csv` — do not edit by hand.",
            "Unit of replication = training seed; a seed point pools 3 tasks × 3 checkpoints × 50 episodes. "
@@ -607,6 +666,30 @@ def report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all) -> str:
                          f"${c['cost_usd']:.2f}", c.get("eval_hours", "")])
     out += [md_table(["Method", "Kind", "Runs", "Where", "Train h/run (median)", "Train h total", "Cost",
                       "Eval h (laptop)"], rows), "", f"Total cloud spend: **${comp['total_cloud_usd']:.2f}**", ""]
+
+    # 8 failure analysis
+    out += ["## 8. Failure analysis (coded videos)", ""]
+    if fl is None:
+        out += ["Not coded yet: run `scripts/code_videos.py` (sample in `notes/coding_sample.csv`).", ""]
+        return "\n".join(out)
+    cells = [c for c in CELL_LABEL if c in fl["cells"]]
+    out += [f"{fl['n_coded']}/{fl['n_sample']} sampled videos coded blind to method ({fl['n_flagged']} flagged unsure). "
+            "Sample: 10 failures + 5 successes per cell, drawn at random from episodes 0–9 (seeded, "
+            "`scripts/make_coding_sample.py`). Counts are raw; rates are weighted back to each outcome's real share.", "",
+            "**Failure causes** (coded failures; count where the code appears, first cause in brackets):", ""]
+    rows = [[c] + [f"{fl['cells'][k]['any'][c]} ({fl['cells'][k]['first'][c]})" for k in cells] for c in CODE_NAMES]
+    rows.append(["*failures coded*"] + [str(fl["cells"][k]["failures"]) for k in cells])
+    out += [md_table(["Code"] + [CELL_LABEL[k] for k in cells], rows), ""]
+
+    def r(x, ci):
+        return "—" if np.isnan(x) else f"{100 * x:.0f}% ({100 * ci[0]:.0f}–{100 * ci[1]:.0f})"
+    out += ["**After a missed or dropped grasp**: retry rate = tried again (≥ 2 attempts); recovery rate = still "
+            "succeeded. Weighted; 95% CI from a stratified bootstrap.", ""]
+    rows = [[CELL_LABEL[k], fl["cells"][k]["n_miss"], r(fl["cells"][k]["retry"], fl["cells"][k]["retry_ci"]),
+             r(fl["cells"][k]["recovery"], fl["cells"][k]["recovery_ci"])] for k in cells]
+    rows += [[f"**{METHOD_LABEL[m]}, all cells**", v["n_miss"], r(v["retry"], v["retry_ci"]),
+              r(v["recovery"], v["recovery_ci"])] for m, v in fl["methods"].items()]
+    out += [md_table(["Cell", "Videos with a miss/drop", "Retry rate", "Recovery rate"], rows), ""]
     return "\n".join(out)
 
 
@@ -619,7 +702,7 @@ def jsonable(o):
     if isinstance(o, np.ndarray):
         return [jsonable(v) for v in o.tolist()]
     if isinstance(o, (np.floating, float)):
-        return round(float(o), 2)
+        return None if np.isnan(o) else round(float(o), 3)
     if isinstance(o, np.integer):
         return int(o)
     return o
@@ -641,6 +724,7 @@ def main():
     sc = scenes(df)
     bt = butter(diag, df)
     comp = compute_summary(df, diag)
+    fl = failures()
 
     style()
     n_all_mean = float(np.mean(list(n_all.values())))
@@ -649,7 +733,7 @@ def main():
     fig_stability(runs, summ)
     fig_scenes(sc)
 
-    MD_OUT.write_text(report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all) + "\n")
+    MD_OUT.write_text(report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl) + "\n")
     summary = dict(
         n_rows=len(df), n_runs=int(df["name"].nunique()), n_episodes=int(df["n_episodes"].sum()),
         demos_all=n_all, seeds=SEEDS,
@@ -666,6 +750,7 @@ def main():
         butter_diagnostic=dict(per_seed=bt.drop(columns=["ckpt", "grid_ckpt"]).to_dict("records"),
                                long_pct=pct(bt["last3"].sum(), 450), grid_pct=pct(bt["grid"].sum(), 450)),
         compute=comp,
+        failures=fl,
     )
     JSON_OUT.write_text(json.dumps(jsonable(summary), indent=1) + "\n")
     print(f"wrote {MD_OUT.relative_to(ROOT)}, {JSON_OUT.relative_to(ROOT)}, figures in {FIG_DIR.relative_to(ROOT)}/")

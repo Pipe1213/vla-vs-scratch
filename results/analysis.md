@@ -162,3 +162,7 @@ ACT t2, all 45 demos, 30k steps instead of 10k (`results/diagnostics.csv`). Succ
 
 Total cloud spend: **$31.84**
 
+## 8. Failure analysis (coded videos)
+
+Not coded yet: run `scripts/code_videos.py` (sample in `notes/coding_sample.csv`).
+
