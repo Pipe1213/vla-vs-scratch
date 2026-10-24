@@ -164,5 +164,33 @@ Total cloud spend: **$31.84**
 
 ## 8. Failure analysis (coded videos)
 
-Not coded yet: run `scripts/code_videos.py` (sample in `notes/coding_sample.csv`).
+90/90 sampled videos coded blind to method (0 flagged unsure). Sample: 10 failures + 5 successes per cell, drawn at random from episodes 0–9 (seeded, `scripts/make_coding_sample.py`). Counts are raw; rates are weighted back to each outcome's real share.
+
+**Failure causes** (coded failures; count where the code appears, first cause in brackets):
+
+| Code | ACT · 5 demos | ACT · all demos | ACT · butter, 10 demos | SmolVLA · 5 demos | SmolVLA · all demos | SmolVLA · butter, 10 demos |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| G-MISS | 10 (9) | 10 (10) | 9 (9) | 6 (6) | 8 (8) | 2 (2) |
+| G-SLIP | 2 (0) | 0 (0) | 1 (1) | 2 (2) | 1 (1) | 0 (0) |
+| NO-RETRY | 0 (0) | 5 (0) | 1 (0) | 8 (0) | 4 (0) | 2 (0) |
+| RETRY-FAIL | 8 (0) | 5 (0) | 9 (0) | 0 (0) | 5 (0) | 0 (0) |
+| COLLIDE | 4 (1) | 2 (0) | 0 (0) | 0 (0) | 0 (0) | 0 (0) |
+| WRONG-OBJ | 0 (0) | 0 (0) | 0 (0) | 0 (0) | 0 (0) | 0 (0) |
+| PLACE | 1 (0) | 0 (0) | 0 (0) | 2 (2) | 1 (1) | 0 (0) |
+| TIMEOUT | 9 (0) | 3 (0) | 7 (0) | 0 (0) | 0 (0) | 0 (0) |
+| OTHER | 0 (0) | 0 (0) | 0 (0) | 0 (0) | 0 (0) | 0 (0) |
+| *failures coded* | 10 | 10 | 10 | 10 | 10 | 2 |
+
+**After a missed or dropped grasp**: retry rate = tried again (≥ 2 attempts); recovery rate = still succeeded. Weighted; 95% CI from a stratified bootstrap.
+
+| Cell | Videos with a miss/drop | Retry rate | Recovery rate |
+| --- | ---: | ---: | ---: |
+| ACT · 5 demos | 11 | 90% (70–100) | 4% (0–12) |
+| ACT · all demos | 10 | 50% (20–80) | 0% (0–0) |
+| ACT · butter, 10 demos | 10 | 90% (70–100) | 0% (0–0) |
+| SmolVLA · 5 demos | 9 | 49% (0–76) | 49% (0–76) |
+| SmolVLA · all demos | 10 | 85% (30–96) | 67% (0–86) |
+| SmolVLA · butter, 10 demos | 2 | 0% (0–0) | 0% (0–0) |
+| **ACT (from scratch), all cells** | 31 | 79% (65–92) | 2% (0–7) |
+| **SmolVLA (fine-tuned), all cells** | 21 | 64% (15–81) | 56% (0–76) |
 

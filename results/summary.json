@@ -566,5 +566,291 @@
   },
   "total_cloud_usd": 31.84
  },
- "failures": null
+ "failures": {
+  "n_coded": 90,
+  "n_sample": 90,
+  "n_flagged": 0,
+  "cells": {
+   "act_n05": {
+    "failures": 10,
+    "successes": 5,
+    "any": {
+     "G-MISS": 10,
+     "G-SLIP": 2,
+     "NO-RETRY": 0,
+     "RETRY-FAIL": 8,
+     "COLLIDE": 4,
+     "WRONG-OBJ": 0,
+     "PLACE": 1,
+     "TIMEOUT": 9,
+     "OTHER": 0
+    },
+    "first": {
+     "G-MISS": 9,
+     "G-SLIP": 0,
+     "NO-RETRY": 0,
+     "RETRY-FAIL": 0,
+     "COLLIDE": 1,
+     "WRONG-OBJ": 0,
+     "PLACE": 0,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "clean_successes": 0,
+    "n_coded": 15,
+    "n_miss": 11,
+    "n_miss_success": 1,
+    "n_miss_retry": 10,
+    "retry": 0.904,
+    "retry_ci": [
+     0.7,
+     1.0
+    ],
+    "recovery": 0.043,
+    "recovery_ci": [
+     0.0,
+     0.12
+    ]
+   },
+   "act_nall": {
+    "failures": 10,
+    "successes": 5,
+    "any": {
+     "G-MISS": 10,
+     "G-SLIP": 0,
+     "NO-RETRY": 5,
+     "RETRY-FAIL": 5,
+     "COLLIDE": 2,
+     "WRONG-OBJ": 0,
+     "PLACE": 0,
+     "TIMEOUT": 3,
+     "OTHER": 0
+    },
+    "first": {
+     "G-MISS": 10,
+     "G-SLIP": 0,
+     "NO-RETRY": 0,
+     "RETRY-FAIL": 0,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 0,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "clean_successes": 4,
+    "n_coded": 15,
+    "n_miss": 10,
+    "n_miss_success": 0,
+    "n_miss_retry": 5,
+    "retry": 0.5,
+    "retry_ci": [
+     0.2,
+     0.8
+    ],
+    "recovery": 0.0,
+    "recovery_ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "act_t2_n10": {
+    "failures": 10,
+    "successes": 5,
+    "any": {
+     "G-MISS": 9,
+     "G-SLIP": 1,
+     "NO-RETRY": 1,
+     "RETRY-FAIL": 9,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 0,
+     "TIMEOUT": 7,
+     "OTHER": 0
+    },
+    "first": {
+     "G-MISS": 9,
+     "G-SLIP": 1,
+     "NO-RETRY": 0,
+     "RETRY-FAIL": 0,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 0,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "clean_successes": 4,
+    "n_coded": 15,
+    "n_miss": 10,
+    "n_miss_success": 0,
+    "n_miss_retry": 9,
+    "retry": 0.9,
+    "retry_ci": [
+     0.7,
+     1.0
+    ],
+    "recovery": 0.0,
+    "recovery_ci": [
+     0.0,
+     0.0
+    ]
+   },
+   "smolvla_n05": {
+    "failures": 10,
+    "successes": 5,
+    "any": {
+     "G-MISS": 6,
+     "G-SLIP": 2,
+     "NO-RETRY": 8,
+     "RETRY-FAIL": 0,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 2,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "first": {
+     "G-MISS": 6,
+     "G-SLIP": 2,
+     "NO-RETRY": 0,
+     "RETRY-FAIL": 0,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 2,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "clean_successes": 4,
+    "n_coded": 15,
+    "n_miss": 9,
+    "n_miss_success": 1,
+    "n_miss_retry": 1,
+    "retry": 0.491,
+    "retry_ci": [
+     0.0,
+     0.756
+    ],
+    "recovery": 0.491,
+    "recovery_ci": [
+     0.0,
+     0.756
+    ]
+   },
+   "smolvla_nall": {
+    "failures": 10,
+    "successes": 5,
+    "any": {
+     "G-MISS": 8,
+     "G-SLIP": 1,
+     "NO-RETRY": 4,
+     "RETRY-FAIL": 5,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 1,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "first": {
+     "G-MISS": 8,
+     "G-SLIP": 1,
+     "NO-RETRY": 0,
+     "RETRY-FAIL": 0,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 1,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "clean_successes": 4,
+    "n_coded": 15,
+    "n_miss": 10,
+    "n_miss_success": 1,
+    "n_miss_retry": 6,
+    "retry": 0.852,
+    "retry_ci": [
+     0.3,
+     0.964
+    ],
+    "recovery": 0.667,
+    "recovery_ci": [
+     0.0,
+     0.857
+    ]
+   },
+   "smolvla_t2_n10": {
+    "failures": 2,
+    "successes": 13,
+    "any": {
+     "G-MISS": 2,
+     "G-SLIP": 0,
+     "NO-RETRY": 2,
+     "RETRY-FAIL": 0,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 0,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "first": {
+     "G-MISS": 2,
+     "G-SLIP": 0,
+     "NO-RETRY": 0,
+     "RETRY-FAIL": 0,
+     "COLLIDE": 0,
+     "WRONG-OBJ": 0,
+     "PLACE": 0,
+     "TIMEOUT": 0,
+     "OTHER": 0
+    },
+    "clean_successes": 12,
+    "n_coded": 15,
+    "n_miss": 2,
+    "n_miss_success": 0,
+    "n_miss_retry": 0,
+    "retry": 0.0,
+    "retry_ci": [
+     0.0,
+     0.0
+    ],
+    "recovery": 0.0,
+    "recovery_ci": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "methods": {
+   "act": {
+    "n_coded": 45,
+    "n_miss": 31,
+    "n_miss_success": 1,
+    "n_miss_retry": 24,
+    "retry": 0.792,
+    "retry_ci": [
+     0.646,
+     0.915
+    ],
+    "recovery": 0.024,
+    "recovery_ci": [
+     0.0,
+     0.07
+    ]
+   },
+   "smolvla": {
+    "n_coded": 45,
+    "n_miss": 21,
+    "n_miss_success": 2,
+    "n_miss_retry": 7,
+    "retry": 0.643,
+    "retry_ci": [
+     0.145,
+     0.812
+    ],
+    "recovery": 0.561,
+    "recovery_ci": [
+     0.0,
+     0.76
+    ]
+   }
+  }
+ }
 }
