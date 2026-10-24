@@ -3,13 +3,13 @@
 
     python scripts/make_gifs.py               # writes results/figures/gifs/*.gif + gifs.csv
     python scripts/make_gifs.py --dry-run     # only print which videos were picked
-    python scripts/make_gifs.py --pick act_retry_loop=V24   # override one pick (logged in gifs.csv as "manual")
+    python scripts/make_gifs.py --pick act_retry_fail=V24   # override one pick (logged in gifs.csv as "manual")
 
 Picks are drawn at random (fixed seed) among the 90 coded videos (notes/failure_codes.csv) that match each slot,
 so the GIFs show typical behaviour, not the best-looking episodes. Slots:
 - success / failure for each method at 5 demos and at all demos (8 GIFs)
 - butter at 10 demos: SmolVLA success | ACT failure, side by side (the strongest per-task contrast)
-- behaviour: an ACT retry loop (failure with RETRY-FAIL) | a SmolVLA recovery (success after G-MISS/G-SLIP)
+- behaviour: an ACT failure after retrying (RETRY-FAIL) | a SmolVLA recovery (success after G-MISS/G-SLIP)
 Videos are 256x256 at 80 fps (an episode lasts 1.5-3.5 s); GIFs play them at 1/4 speed (20 fps) and hold the
 last frame for 1 s.
 """
@@ -42,11 +42,11 @@ SLOTS = {  # name -> filter on a coded row (dict of strings)
     "act_nall_failure": lambda r: r["cell"] == "act_nall" and r["success"] == "0",
     "butter_n10_smolvla_success": lambda r: r["cell"] == "smolvla_t2_n10" and r["success"] == "1",
     "butter_n10_act_failure": lambda r: r["cell"] == "act_t2_n10" and r["success"] == "0",
-    "act_retry_loop": lambda r: r["method"] == "act" and r["success"] == "0" and "RETRY-FAIL" in r["codes"],
+    "act_retry_fail": lambda r: r["method"] == "act" and r["success"] == "0" and "RETRY-FAIL" in r["codes"],
     "smolvla_recovery": lambda r: r["method"] == "smolvla" and r["success"] == "1" and is_miss(r),
 }
 PAIRS = {"butter_n10_pair": ("butter_n10_smolvla_success", "butter_n10_act_failure"),
-         "retry_vs_recovery_pair": ("act_retry_loop", "smolvla_recovery")}
+         "act_retry_fail_vs_smolvla_recovery_pair": ("act_retry_fail", "smolvla_recovery")}
 
 
 def rows() -> list[dict]:
