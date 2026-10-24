@@ -63,3 +63,6 @@ date,run,method,task,n_demos,steps,where,hardware,hours,cost_usd,notes
 2026-10-23,act_obj_t3_n10_s3,act,t3,10,10000,laptop,RTX 4050 6GB,0.36,0,"grid run, seed index 3; seed 3000"
 2026-10-23,act_obj_t3_n20_s3,act,t3,20,10000,laptop,RTX 4050 6GB,0.38,0,"grid run, seed index 3; seed 3000"
 2026-10-23,act_obj_t3_nall_s3,act,t3,all,10000,laptop,RTX 4050 6GB,0.38,0,"grid run, seed index 3; seed 3000"
+2026-10-24,act_obj_t2_nall_30k,act,t2,all,30000,laptop,RTX 4050 6GB,1.09,0,diagnostic act_t2_long (not grid); seed 1000
+2026-10-24,act_obj_t2_nall_30k_s2,act,t2,all,30000,laptop,RTX 4050 6GB,1.1,0,diagnostic act_t2_long (not grid); seed 2000
+2026-10-24,act_obj_t2_nall_30k_s3,act,t2,all,30000,laptop,RTX 4050 6GB,1.12,0,diagnostic act_t2_long (not grid); seed 3000
