@@ -1,0 +1,91 @@
+vid,success,codes,attempts,flag,comment,coded_at,cell,run,method,task,size,seed,checkpoint,episode,video
+V01,1,,1,0,,2026-10-24T22:39:27,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,004000,3,outputs/eval/smolvla_obj_t2_n10_s2/004000_ep50/videos/libero_object_6/eval_episode_3.mp4
+V02,0,G-MISS+RETRY-FAIL+TIMEOUT,2,0,,2026-10-24T23:09:32,act_t2_n10,act_obj_t2_n10_s3,act,t2,10,3,006000,5,outputs/eval/act_obj_t2_n10_s3/006000_ep50/videos/libero_object_6/eval_episode_5.mp4
+V03,0,PLACE,1,0,"Wrong placing on the basket, to close to the edge causing the object to fall out of the basket",2026-10-24T22:42:24,smolvla_n05,smolvla_obj_t2_n05_s2,smolvla,t2,5,2,003000,8,outputs/eval/smolvla_obj_t2_n05_s2/003000_ep50/videos/libero_object_6/eval_episode_8.mp4
+V04,1,,1,0,,2026-10-24T22:42:33,act_nall,act_obj_t3_nall_s3,act,t3,all,3,008000,5,outputs/eval/act_obj_t3_nall_s3/008000_ep50/videos/libero_object_8/eval_episode_5.mp4
+V05,0,COLLIDE+G-MISS+G-SLIP+PLACE,1,0,,2026-10-24T22:43:26,act_n05,act_obj_t1_n05_s3,act,t1,5,3,008000,4,outputs/eval/act_obj_t1_n05_s3/008000_ep50/videos/libero_object_3/eval_episode_4.mp4
+V06,1,,1,0,,2026-10-24T22:43:36,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,004000,6,outputs/eval/smolvla_obj_t2_n10_s2/004000_ep50/videos/libero_object_6/eval_episode_6.mp4
+V07,1,G-MISS,2,0,,2026-10-24T22:44:20,smolvla_nall,smolvla_obj_t1_nall_s2,smolvla,t1,all,2,004000,0,outputs/eval/smolvla_obj_t1_nall_s2/004000_ep50/videos/libero_object_3/eval_episode_0.mp4
+V08,1,,1,0,,2026-10-24T22:44:31,smolvla_t2_n10,smolvla_obj_t2_n10,smolvla,t2,10,1,005000,2,outputs/eval/smolvla_obj_t2_n10/005000_ep50/videos/libero_object_6/eval_episode_2.mp4
+V09,0,G-MISS+TIMEOUT,3+,0,"Gripper couldn't take the object, stay over it trying until timeout",2026-10-24T22:45:22,act_n05,act_obj_t3_n05,act,t3,5,1,010000,3,outputs/eval/act_obj_t3_n05/010000_ep50/videos/libero_object_8/eval_episode_3.mp4
+V10,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:45:47,smolvla_n05,smolvla_obj_t1_n05,smolvla,t1,5,1,004000,6,outputs/eval/smolvla_obj_t1_n05/004000_ep50/videos/libero_object_3/eval_episode_6.mp4
+V11,0,PLACE,1,0,"Fail in placing on the basket, drop the object out of it",2026-10-24T22:46:20,smolvla_n05,smolvla_obj_t2_n05,smolvla,t2,5,1,003000,4,outputs/eval/smolvla_obj_t2_n05/003000_ep50/videos/libero_object_6/eval_episode_4.mp4
+V12,1,,1,0,,2026-10-24T22:46:28,act_t2_n10,act_obj_t2_n10_s2,act,t2,10,2,008000,9,outputs/eval/act_obj_t2_n10_s2/008000_ep50/videos/libero_object_6/eval_episode_9.mp4
+V13,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:46:43,smolvla_nall,smolvla_obj_t2_nall_s2,smolvla,t2,all,2,004000,1,outputs/eval/smolvla_obj_t2_nall_s2/004000_ep50/videos/libero_object_6/eval_episode_1.mp4
+V14,1,,1,0,,2026-10-24T22:46:52,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,004000,8,outputs/eval/smolvla_obj_t2_n10_s2/004000_ep50/videos/libero_object_6/eval_episode_8.mp4
+V15,1,OTHER,1,0,"slow placing, having problems putting the object in the correct place, no during translation but when over the basket",2026-10-24T22:47:52,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,005000,4,outputs/eval/smolvla_obj_t2_n10_s2/005000_ep50/videos/libero_object_6/eval_episode_4.mp4
+V16,0,G-MISS+NO-RETRY,1,0,,2026-10-24T23:11:30,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,003000,4,outputs/eval/smolvla_obj_t2_n10_s2/003000_ep50/videos/libero_object_6/eval_episode_4.mp4
+V17,1,,1,0,,2026-10-24T22:48:30,smolvla_t2_n10,smolvla_obj_t2_n10,smolvla,t2,10,1,004000,6,outputs/eval/smolvla_obj_t2_n10/004000_ep50/videos/libero_object_6/eval_episode_6.mp4
+V18,1,,1,0,,2026-10-24T22:48:39,smolvla_t2_n10,smolvla_obj_t2_n10,smolvla,t2,10,1,003000,4,outputs/eval/smolvla_obj_t2_n10/003000_ep50/videos/libero_object_6/eval_episode_4.mp4
+V19,0,G-MISS+RETRY-FAIL+TIMEOUT,2,0,,2026-10-24T23:11:47,act_n05,act_obj_t2_n05,act,t2,5,1,006000,7,outputs/eval/act_obj_t2_n05/006000_ep50/videos/libero_object_6/eval_episode_7.mp4
+V20,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:49:19,act_nall,act_obj_t3_nall_s3,act,t3,all,3,010000,2,outputs/eval/act_obj_t3_nall_s3/010000_ep50/videos/libero_object_8/eval_episode_2.mp4
+V21,1,COLLIDE,1,0,,2026-10-24T22:49:29,act_nall,act_obj_t1_nall_s3,act,t1,all,3,006000,3,outputs/eval/act_obj_t1_nall_s3/006000_ep50/videos/libero_object_3/eval_episode_3.mp4
+V22,0,G-MISS+RETRY-FAIL+TIMEOUT,3+,0,,2026-10-24T23:12:59,act_n05,act_obj_t2_n05_s2,act,t2,5,2,006000,1,outputs/eval/act_obj_t2_n05_s2/006000_ep50/videos/libero_object_6/eval_episode_1.mp4
+V23,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:50:02,smolvla_n05,smolvla_obj_t1_n05_s2,smolvla,t1,5,2,004000,2,outputs/eval/smolvla_obj_t1_n05_s2/004000_ep50/videos/libero_object_3/eval_episode_2.mp4
+V24,0,G-MISS+COLLIDE+RETRY-FAIL+TIMEOUT,3+,0,not sure if qualify as retry but stay near the objects trying to grab them but without real chances,2026-10-24T23:13:14,act_n05,act_obj_t1_n05,act,t1,5,1,006000,4,outputs/eval/act_obj_t1_n05/006000_ep50/videos/libero_object_3/eval_episode_4.mp4
+V25,1,,1,0,,2026-10-24T22:50:56,smolvla_n05,smolvla_obj_t3_n05,smolvla,t3,5,1,003000,8,outputs/eval/smolvla_obj_t3_n05/003000_ep50/videos/libero_object_8/eval_episode_8.mp4
+V26,1,,1,0,,2026-10-24T22:51:05,act_nall,act_obj_t2_nall_s3,act,t2,all,3,008000,1,outputs/eval/act_obj_t2_nall_s3/008000_ep50/videos/libero_object_6/eval_episode_1.mp4
+V27,0,G-MISS+RETRY-FAIL+TIMEOUT,3+,0,arm stay over the object trying to retry without succeed,2026-10-24T23:13:33,act_t2_n10,act_obj_t2_n10_s3,act,t2,10,3,006000,4,outputs/eval/act_obj_t2_n10_s3/006000_ep50/videos/libero_object_6/eval_episode_4.mp4
+V28,0,G-MISS+RETRY-FAIL,2,0,,2026-10-24T22:52:03,smolvla_nall,smolvla_obj_t1_nall_s2,smolvla,t1,all,2,003000,4,outputs/eval/smolvla_obj_t1_nall_s2/003000_ep50/videos/libero_object_3/eval_episode_4.mp4
+V29,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:52:12,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,003000,7,outputs/eval/smolvla_obj_t2_n10_s2/003000_ep50/videos/libero_object_6/eval_episode_7.mp4
+V30,1,,1,0,,2026-10-24T22:52:19,smolvla_nall,smolvla_obj_t1_nall,smolvla,t1,all,1,005000,7,outputs/eval/smolvla_obj_t1_nall/005000_ep50/videos/libero_object_3/eval_episode_7.mp4
+V31,1,COLLIDE,1,0,,2026-10-24T22:52:32,act_n05,act_obj_t1_n05_s3,act,t1,5,3,006000,7,outputs/eval/act_obj_t1_n05_s3/006000_ep50/videos/libero_object_3/eval_episode_7.mp4
+V32,0,G-MISS+RETRY-FAIL,3+,0,,2026-10-24T22:52:45,act_t2_n10,act_obj_t2_n10_s3,act,t2,10,3,008000,5,outputs/eval/act_obj_t2_n10_s3/008000_ep50/videos/libero_object_6/eval_episode_5.mp4
+V33,1,,1,0,,2026-10-24T22:52:54,smolvla_t2_n10,smolvla_obj_t2_n10,smolvla,t2,10,1,003000,0,outputs/eval/smolvla_obj_t2_n10/003000_ep50/videos/libero_object_6/eval_episode_0.mp4
+V34,0,G-SLIP+NO-RETRY,1,0,,2026-10-24T22:53:09,smolvla_n05,smolvla_obj_t3_n05_s2,smolvla,t3,5,2,005000,3,outputs/eval/smolvla_obj_t3_n05_s2/005000_ep50/videos/libero_object_8/eval_episode_3.mp4
+V35,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:53:17,smolvla_n05,smolvla_obj_t2_n05_s2,smolvla,t2,5,2,004000,8,outputs/eval/smolvla_obj_t2_n05_s2/004000_ep50/videos/libero_object_6/eval_episode_8.mp4
+V36,0,G-MISS+RETRY-FAIL,2,0,,2026-10-24T22:53:30,act_nall,act_obj_t3_nall_s2,act,t3,all,2,010000,4,outputs/eval/act_obj_t3_nall_s2/010000_ep50/videos/libero_object_8/eval_episode_4.mp4
+V37,0,G-MISS+RETRY-FAIL,2,0,,2026-10-24T22:53:44,act_t2_n10,act_obj_t2_n10_s3,act,t2,10,3,006000,6,outputs/eval/act_obj_t2_n10_s3/006000_ep50/videos/libero_object_6/eval_episode_6.mp4
+V38,1,OTHER,1,0,some problems dropping the object on the right place,2026-10-24T22:54:42,act_t2_n10,act_obj_t2_n10_s3,act,t2,10,3,010000,9,outputs/eval/act_obj_t2_n10_s3/010000_ep50/videos/libero_object_6/eval_episode_9.mp4
+V39,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:55:05,act_t2_n10,act_obj_t2_n10_s3,act,t2,10,3,006000,8,outputs/eval/act_obj_t2_n10_s3/006000_ep50/videos/libero_object_6/eval_episode_8.mp4
+V40,0,G-MISS+RETRY-FAIL+TIMEOUT,2,0,,2026-10-24T23:15:23,act_t2_n10,act_obj_t2_n10_s2,act,t2,10,2,010000,2,outputs/eval/act_obj_t2_n10_s2/010000_ep50/videos/libero_object_6/eval_episode_2.mp4
+V41,0,G-MISS+RETRY-FAIL+TIMEOUT,2,0,,2026-10-24T23:15:30,act_t2_n10,act_obj_t2_n10,act,t2,10,1,006000,1,outputs/eval/act_obj_t2_n10/006000_ep50/videos/libero_object_6/eval_episode_1.mp4
+V42,1,,1,0,,2026-10-24T22:56:19,act_nall,act_obj_t3_nall_s2,act,t3,all,2,008000,7,outputs/eval/act_obj_t3_nall_s2/008000_ep50/videos/libero_object_8/eval_episode_7.mp4
+V43,0,G-SLIP+RETRY-FAIL+TIMEOUT,2,0,,2026-10-24T23:15:46,act_t2_n10,act_obj_t2_n10_s3,act,t2,10,3,006000,9,outputs/eval/act_obj_t2_n10_s3/006000_ep50/videos/libero_object_6/eval_episode_9.mp4
+V44,1,,1,0,,2026-10-24T22:56:44,smolvla_nall,smolvla_obj_t1_nall,smolvla,t1,all,1,005000,8,outputs/eval/smolvla_obj_t1_nall/005000_ep50/videos/libero_object_3/eval_episode_8.mp4
+V45,1,COLLIDE,1,0,,2026-10-24T22:56:50,act_n05,act_obj_t1_n05,act,t1,5,1,010000,5,outputs/eval/act_obj_t1_n05/010000_ep50/videos/libero_object_3/eval_episode_5.mp4
+V46,1,,1,0,,2026-10-24T22:57:00,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,004000,4,outputs/eval/smolvla_obj_t2_n10_s2/004000_ep50/videos/libero_object_6/eval_episode_4.mp4
+V47,1,OTHER+COLLIDE,1,0,collide with the basket and have problem on direction but succeed,2026-10-24T22:57:44,act_n05,act_obj_t3_n05_s3,act,t3,5,3,010000,7,outputs/eval/act_obj_t3_n05_s3/010000_ep50/videos/libero_object_8/eval_episode_7.mp4
+V48,0,G-SLIP+NO-RETRY,1,0,,2026-10-24T22:57:55,smolvla_n05,smolvla_obj_t1_n05_s2,smolvla,t1,5,2,003000,9,outputs/eval/smolvla_obj_t1_n05_s2/003000_ep50/videos/libero_object_3/eval_episode_9.mp4
+V49,0,G-MISS+RETRY-FAIL,2,0,,2026-10-24T22:58:04,act_nall,act_obj_t3_nall_s3,act,t3,all,3,006000,2,outputs/eval/act_obj_t3_nall_s3/006000_ep50/videos/libero_object_8/eval_episode_2.mp4
+V50,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:58:12,act_nall,act_obj_t2_nall,act,t2,all,1,010000,3,outputs/eval/act_obj_t2_nall/010000_ep50/videos/libero_object_6/eval_episode_3.mp4
+V51,1,,1,0,,2026-10-24T22:58:24,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,005000,0,outputs/eval/smolvla_obj_t2_n10_s2/005000_ep50/videos/libero_object_6/eval_episode_0.mp4
+V52,1,,1,0,,2026-10-24T22:58:32,smolvla_n05,smolvla_obj_t3_n05_s2,smolvla,t3,5,2,004000,0,outputs/eval/smolvla_obj_t3_n05_s2/004000_ep50/videos/libero_object_8/eval_episode_0.mp4
+V53,0,G-SLIP+NO-RETRY,1,0,,2026-10-24T22:58:46,smolvla_nall,smolvla_obj_t1_nall_s2,smolvla,t1,all,2,003000,5,outputs/eval/smolvla_obj_t1_nall_s2/003000_ep50/videos/libero_object_3/eval_episode_5.mp4
+V54,0,G-MISS+NO-RETRY,1,0,,2026-10-24T22:58:58,smolvla_nall,smolvla_obj_t2_nall,smolvla,t2,all,1,004000,9,outputs/eval/smolvla_obj_t2_nall/004000_ep50/videos/libero_object_6/eval_episode_9.mp4
+V55,0,G-MISS+RETRY-FAIL+TIMEOUT,3+,0,,2026-10-24T23:16:50,act_n05,act_obj_t3_n05_s2,act,t3,5,2,008000,7,outputs/eval/act_obj_t3_n05_s2/008000_ep50/videos/libero_object_8/eval_episode_7.mp4
+V56,1,,1,0,,2026-10-24T22:59:17,smolvla_n05,smolvla_obj_t2_n05,smolvla,t2,5,1,003000,6,outputs/eval/smolvla_obj_t2_n05/003000_ep50/videos/libero_object_6/eval_episode_6.mp4
+V57,1,,1,0,,2026-10-24T22:59:27,act_t2_n10,act_obj_t2_n10,act,t2,10,1,010000,9,outputs/eval/act_obj_t2_n10/010000_ep50/videos/libero_object_6/eval_episode_9.mp4
+V58,1,,1,0,,2026-10-24T22:59:36,act_t2_n10,act_obj_t2_n10_s2,act,t2,10,2,008000,1,outputs/eval/act_obj_t2_n10_s2/008000_ep50/videos/libero_object_6/eval_episode_1.mp4
+V59,1,,1,0,,2026-10-24T22:59:43,act_t2_n10,act_obj_t2_n10_s2,act,t2,10,2,008000,4,outputs/eval/act_obj_t2_n10_s2/008000_ep50/videos/libero_object_6/eval_episode_4.mp4
+V60,0,G-MISS+COLLIDE+RETRY-FAIL+TIMEOUT,3+,0,,2026-10-24T23:17:17,act_nall,act_obj_t1_nall_s3,act,t1,all,3,008000,1,outputs/eval/act_obj_t1_nall_s3/008000_ep50/videos/libero_object_3/eval_episode_1.mp4
+V61,0,PLACE,1,0,,2026-10-24T23:00:40,smolvla_nall,smolvla_obj_t3_nall,smolvla,t3,all,1,005000,5,outputs/eval/smolvla_obj_t3_nall/005000_ep50/videos/libero_object_8/eval_episode_5.mp4
+V62,0,G-MISS+RETRY-FAIL,2,0,,2026-10-24T23:00:59,smolvla_nall,smolvla_obj_t2_nall,smolvla,t2,all,1,004000,1,outputs/eval/smolvla_obj_t2_nall/004000_ep50/videos/libero_object_6/eval_episode_1.mp4
+V63,1,,1,0,,2026-10-24T23:01:07,act_nall,act_obj_t3_nall_s3,act,t3,all,3,006000,7,outputs/eval/act_obj_t3_nall_s3/006000_ep50/videos/libero_object_8/eval_episode_7.mp4
+V64,0,G-MISS+RETRY-FAIL,2,0,,2026-10-24T23:01:18,smolvla_nall,smolvla_obj_t2_nall_s2,smolvla,t2,all,2,005000,1,outputs/eval/smolvla_obj_t2_nall_s2/005000_ep50/videos/libero_object_6/eval_episode_1.mp4
+V65,0,G-MISS+NO-RETRY,1,0,,2026-10-24T23:01:27,act_nall,act_obj_t3_nall_s2,act,t3,all,2,006000,6,outputs/eval/act_obj_t3_nall_s2/006000_ep50/videos/libero_object_8/eval_episode_6.mp4
+V66,1,,1,0,,2026-10-24T23:01:36,smolvla_nall,smolvla_obj_t3_nall_s2,smolvla,t3,all,2,003000,2,outputs/eval/smolvla_obj_t3_nall_s2/003000_ep50/videos/libero_object_8/eval_episode_2.mp4
+V67,0,G-MISS+RETRY-FAIL+TIMEOUT,3+,0,,2026-10-24T23:18:24,act_nall,act_obj_t2_nall_s2,act,t2,all,2,010000,3,outputs/eval/act_obj_t2_nall_s2/010000_ep50/videos/libero_object_6/eval_episode_3.mp4
+V68,0,G-MISS+NO-RETRY,1,0,,2026-10-24T23:02:02,smolvla_n05,smolvla_obj_t1_n05,smolvla,t1,5,1,005000,9,outputs/eval/smolvla_obj_t1_n05/005000_ep50/videos/libero_object_3/eval_episode_9.mp4
+V69,1,COLLIDE,1,0,,2026-10-24T23:02:12,act_n05,act_obj_t1_n05_s3,act,t1,5,3,008000,2,outputs/eval/act_obj_t1_n05_s3/008000_ep50/videos/libero_object_3/eval_episode_2.mp4
+V70,1,,1,0,,2026-10-24T23:02:21,smolvla_n05,smolvla_obj_t1_n05_s2,smolvla,t1,5,2,004000,0,outputs/eval/smolvla_obj_t1_n05_s2/004000_ep50/videos/libero_object_3/eval_episode_0.mp4
+V71,1,,1,0,,2026-10-24T23:02:29,smolvla_t2_n10,smolvla_obj_t2_n10,smolvla,t2,10,1,004000,4,outputs/eval/smolvla_obj_t2_n10/004000_ep50/videos/libero_object_6/eval_episode_4.mp4
+V72,0,G-MISS+COLLIDE+RETRY-FAIL+TIMEOUT,3+,0,,2026-10-24T23:08:10,act_n05,act_obj_t1_n05_s3,act,t1,5,3,006000,2,outputs/eval/act_obj_t1_n05_s3/006000_ep50/videos/libero_object_3/eval_episode_2.mp4
+V73,0,G-MISS+NO-RETRY,1,0,,2026-10-24T23:03:01,smolvla_nall,smolvla_obj_t2_nall,smolvla,t2,all,1,005000,9,outputs/eval/smolvla_obj_t2_nall/005000_ep50/videos/libero_object_6/eval_episode_9.mp4
+V74,0,G-MISS+RETRY-FAIL+TIMEOUT,2,0,,2026-10-24T23:08:40,act_t2_n10,act_obj_t2_n10_s3,act,t2,10,3,010000,5,outputs/eval/act_obj_t2_n10_s3/010000_ep50/videos/libero_object_6/eval_episode_5.mp4
+V75,0,G-MISS+NO-RETRY,1,0,,2026-10-24T23:03:31,smolvla_n05,smolvla_obj_t2_n05_s2,smolvla,t2,5,2,004000,6,outputs/eval/smolvla_obj_t2_n05_s2/004000_ep50/videos/libero_object_6/eval_episode_6.mp4
+V76,0,G-MISS+RETRY-FAIL,3+,0,,2026-10-24T23:03:43,smolvla_nall,smolvla_obj_t1_nall_s2,smolvla,t1,all,2,005000,4,outputs/eval/smolvla_obj_t1_nall_s2/005000_ep50/videos/libero_object_3/eval_episode_4.mp4
+V77,0,G-MISS+RETRY-FAIL,3+,0,,2026-10-24T23:03:56,smolvla_nall,smolvla_obj_t1_nall_s2,smolvla,t1,all,2,004000,8,outputs/eval/smolvla_obj_t1_nall_s2/004000_ep50/videos/libero_object_3/eval_episode_8.mp4
+V78,0,G-MISS+COLLIDE+RETRY-FAIL+G-SLIP+TIMEOUT,3+,0,,2026-10-24T23:19:41,act_n05,act_obj_t1_n05_s3,act,t1,5,3,006000,1,outputs/eval/act_obj_t1_n05_s3/006000_ep50/videos/libero_object_3/eval_episode_1.mp4
+V79,0,G-MISS+RETRY-FAIL+TIMEOUT,3+,0,,2026-10-24T23:19:48,act_n05,act_obj_t2_n05_s2,act,t2,5,2,008000,7,outputs/eval/act_obj_t2_n05_s2/008000_ep50/videos/libero_object_6/eval_episode_7.mp4
+V80,0,G-MISS+RETRY-FAIL+TIMEOUT,3+,0,,2026-10-24T23:19:59,act_t2_n10,act_obj_t2_n10,act,t2,10,1,010000,3,outputs/eval/act_obj_t2_n10/010000_ep50/videos/libero_object_6/eval_episode_3.mp4
+V81,1,,1,0,,2026-10-24T23:04:37,smolvla_nall,smolvla_obj_t2_nall_s2,smolvla,t2,all,2,004000,5,outputs/eval/smolvla_obj_t2_nall_s2/004000_ep50/videos/libero_object_6/eval_episode_5.mp4
+V82,0,G-MISS+RETRY-FAIL+TIMEOUT,2,0,,2026-10-24T23:05:29,act_n05,act_obj_t3_n05_s2,act,t3,5,2,008000,1,outputs/eval/act_obj_t3_n05_s2/008000_ep50/videos/libero_object_8/eval_episode_1.mp4
+V83,0,G-MISS+NO-RETRY,1,0,,2026-10-24T23:05:53,smolvla_n05,smolvla_obj_t1_n05,smolvla,t1,5,1,003000,7,outputs/eval/smolvla_obj_t1_n05/003000_ep50/videos/libero_object_3/eval_episode_7.mp4
+V84,1,,1,0,,2026-10-24T23:06:01,smolvla_t2_n10,smolvla_obj_t2_n10,smolvla,t2,10,1,004000,9,outputs/eval/smolvla_obj_t2_n10/004000_ep50/videos/libero_object_6/eval_episode_9.mp4
+V85,1,,1,0,,2026-10-24T23:06:10,smolvla_t2_n10,smolvla_obj_t2_n10_s2,smolvla,t2,10,2,005000,8,outputs/eval/smolvla_obj_t2_n10_s2/005000_ep50/videos/libero_object_6/eval_episode_8.mp4
+V86,0,G-MISS+NO-RETRY,1,0,,2026-10-24T23:06:24,act_nall,act_obj_t3_nall_s2,act,t3,all,2,010000,3,outputs/eval/act_obj_t3_nall_s2/010000_ep50/videos/libero_object_8/eval_episode_3.mp4
+V87,0,G-MISS+RETRY-FAIL+COLLIDE+TIMEOUT,3+,0,,2026-10-24T23:20:37,act_nall,act_obj_t2_nall_s2,act,t2,all,2,010000,1,outputs/eval/act_obj_t2_nall_s2/010000_ep50/videos/libero_object_6/eval_episode_1.mp4
+V88,1,G-MISS,2,0,,2026-10-24T23:07:02,act_n05,act_obj_t3_n05_s3,act,t3,5,3,008000,2,outputs/eval/act_obj_t3_n05_s3/008000_ep50/videos/libero_object_8/eval_episode_2.mp4
+V89,0,G-MISS+NO-RETRY,1,0,,2026-10-24T23:07:23,act_nall,act_obj_t3_nall_s2,act,t3,all,2,010000,9,outputs/eval/act_obj_t3_nall_s2/010000_ep50/videos/libero_object_8/eval_episode_9.mp4
+V90,1,G-MISS,2,0,,2026-10-24T23:21:22,smolvla_n05,smolvla_obj_t3_n05,smolvla,t3,5,1,004000,6,outputs/eval/smolvla_obj_t3_n05/004000_ep50/videos/libero_object_8/eval_episode_6.mp4
