@@ -51,6 +51,7 @@ SEEDS = {"act": [1, 2, 3], "smolvla": [1, 2]}  # seed index -> runs.yaml trainin
 SIZES = ["5", "10", "20", "all"]
 TASKS = ["t1", "t2", "t3"]
 TASK_NAME = {"t1": "bbq sauce", "t2": "butter", "t3": "chocolate pudding"}
+TASK_TITLE = {"t1": "BBQ sauce", "t2": "Butter", "t3": "Chocolate pudding"}   # figure titles
 N_EPS = 50
 # Frozen 24 Oct (plan, Phase 3c): pooled success % per seed at 5/10/20/all demos. The script refuses to run if
 # results.csv no longer reproduces them.
@@ -387,6 +388,7 @@ def failures() -> dict | None:
 # --------------------------------------------------------------------------------------------- figures
 def style():
     plt.rcParams.update({
+        "font.family": "sans-serif", "font.sans-serif": ["Inter", "DejaVu Sans"],
         "font.size": 10, "axes.titlesize": 11, "axes.labelsize": 10, "axes.edgecolor": GRID,
         "axes.labelcolor": INK_2, "xtick.color": INK_2, "ytick.color": INK_2, "text.color": INK,
         "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True, "grid.color": GRID,
@@ -427,7 +429,7 @@ def fig_headline(head: pd.DataFrame, n_all_mean: float):
                         fontsize=8.5, color=INK_2)
     ax.set_xscale("log")
     ax.set_xticks([xs[s] for s in SIZES])
-    ax.set_xticklabels(["5", "10", "20", f"all\n(45–50)"])
+    ax.set_xticklabels(["5", "10", "20", f"all\n(45 to 50)"])
     ax.minorticks_off()
     ax.set_xlim(4.3, 50)
     ax.set_ylim(0, 100)
@@ -442,7 +444,7 @@ def fig_headline(head: pd.DataFrame, n_all_mean: float):
     ax.legend(handles=handles, loc="lower left", bbox_to_anchor=(0, 1.0), ncol=3, fontsize=8.5, handlelength=1.6)
     fig.suptitle("A pretrained VLA with 5 demos beats ACT trained from scratch on all demos",
                  x=0.06, ha="left", y=1.04, fontsize=12, fontweight="bold")
-    fig.text(0.06, 0.975, "LIBERO-Object, 3 tasks; each seed = 3 tasks × 3 checkpoints × 50 episodes",
+    fig.text(0.06, 0.975, "LIBERO-Object, 3 tasks in simulation. Each seed point pools 3 tasks, 3 checkpoints and 50 episodes",
              ha="left", fontsize=9, color=INK_2)
     fig.subplots_adjust(right=0.78)
     save(fig, "headline")
@@ -464,7 +466,7 @@ def fig_per_task(pt: pd.DataFrame, n_all: dict):
         ax.minorticks_off()
         ax.grid(axis="x", visible=False)
         ax.set_xlim(4.3, 56)
-        ax.set_title(f"{t} · {TASK_NAME[t]}", loc="left", fontsize=10.5)
+        ax.set_title(TASK_TITLE[t], loc="left", fontsize=10.5)
         ax.set_xlabel("Demonstrations per task")
     axes[0].set_ylim(0, 100)
     axes[0].set_yticks(range(0, 101, 25))
@@ -473,7 +475,7 @@ def fig_per_task(pt: pd.DataFrame, n_all: dict):
     handles = [Line2D([], [], color=COLOR[m], lw=2, marker="o", ms=6, mec=SURFACE, label=f"{METHOD_LABEL[m]}, mean")
                for m in METHODS] + [Line2D([], [], color=INK_2, lw=1, alpha=0.5, label="individual training seeds")]
     fig.legend(handles=handles, loc="lower left", bbox_to_anchor=(0.06, 0.93), ncol=3, fontsize=9)
-    fig.suptitle("Per task: ACT struggles most on butter; SmolVLA's curves are not monotonic",
+    fig.suptitle("Per task: ACT does worst on butter, and SmolVLA dips at 10 or 20 demos on two tasks",
                  x=0.06, ha="left", y=1.06, fontsize=12, fontweight="bold")
     fig.subplots_adjust(left=0.07, right=0.98, top=0.86, bottom=0.17, wspace=0.08)
     save(fig, "per_task")
@@ -495,7 +497,7 @@ def fig_stability(runs: pd.DataFrame, summ: pd.DataFrame):
         if gi % 4 == 0 and gi:
             ax.axvline(base - gap / 2 + 0.25, color=GRID, lw=1)
     for ti, t in enumerate(TASKS):
-        ax.text(ti * 4 * gap + 1.5 * gap + 2.25, -17, f"{t} · {TASK_NAME[t]}", ha="center", fontsize=10, color=INK)
+        ax.text(ti * 4 * gap + 1.5 * gap + 2.25, -17, TASK_TITLE[t], ha="center", fontsize=10, color=INK)
     ax.set_xticks(xt)
     ax.set_xticklabels(xl)
     ax.grid(axis="x", visible=False)
@@ -507,13 +509,13 @@ def fig_stability(runs: pd.DataFrame, summ: pd.DataFrame):
     ax.set_xlabel("Demonstrations per task, grouped by task", labelpad=28)
     sm = summ.set_index("method")
     handles = [Line2D([], [], color=COLOR[m], lw=2.2, marker="o", ms=4.5, mec=SURFACE,
-                      label=f"{METHOD_LABEL[m]}: checkpoint spread {sm.loc[m, 'ckpt_ratio']:.1f}× sampling noise")
+                      label=f"{METHOD_LABEL[m]}: checkpoint variance {sm.loc[m, 'ckpt_ratio']:.1f} times sampling noise")
                for m in ["act", "smolvla"]]
     ax.legend(handles=handles, loc="lower left", bbox_to_anchor=(0, 1.0), ncol=2, fontsize=9)
     fig.suptitle("ACT's checkpoints disagree far beyond sampling noise; SmolVLA's do not",
                  x=0.06, ha="left", y=1.06, fontsize=12, fontweight="bold")
-    fig.text(0.06, 0.975, "Each bar = one training run; its 3 dots = the evaluated checkpoints (50 episodes each). "
-             "In each group: ACT seeds 1–3 left, SmolVLA seeds 1–2 right.", ha="left", fontsize=9, color=INK_2)
+    fig.text(0.06, 0.975, "Each bar is one training run and its 3 dots are the evaluated checkpoints (50 episodes each). "
+             "In each group, ACT seeds 1 to 3 are on the left and SmolVLA seeds 1 and 2 on the right.", ha="left", fontsize=9, color=INK_2)
     save(fig, "stability")
 
 
@@ -522,7 +524,7 @@ def fig_scenes(sc: pd.DataFrame):
     for ax, r in zip(axes, sc.itertuples()):
         ax.plot(100 * r.act_rate, 100 * r.smolvla_rate, "o", color=COLOR["smolvla"], ms=6, alpha=0.75, mec=SURFACE,
                 mew=0.8)
-        ax.set_title(f"{r.task} · {TASK_NAME[r.task]}", loc="left", fontsize=10.5)
+        ax.set_title(TASK_TITLE[r.task], loc="left", fontsize=10.5)
         ax.text(0.03, 0.04, f"Spearman ρ = {r.spearman:.2f}", transform=ax.transAxes, fontsize=9, color=INK_2)
         ax.set_xlabel("ACT success on this scene")
         ax.set_aspect("equal")

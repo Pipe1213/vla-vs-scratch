@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="709.92pt" height="374.559219pt" viewBox="0 0 709.92 374.559219" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="781.57125pt" height="374.559219pt" viewBox="0 0 781.57125 374.559219" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -21,8 +21,8 @@
  <g id="figure_1">
   <g id="patch_1">
    <path d="M 0 374.559219 
-L 709.92 374.559219 
-L 709.92 0 
+L 781.57125 374.559219 
+L 781.57125 0 
 L 0 0 
 z
 " style="fill: #ffffff"/>
@@ -49,7 +49,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_1">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="89.667321" y="324.8475" transform="rotate(-0 89.667321 324.8475)">5</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="89.667321" y="324.8475" transform="rotate(-0 89.667321 324.8475)">5</text>
      </g>
     </g>
     <g id="xtick_2">
@@ -59,7 +59,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_2">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="143.142321" y="324.8475" transform="rotate(-0 143.142321 324.8475)">10</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="143.142321" y="324.8475" transform="rotate(-0 143.142321 324.8475)">10</text>
      </g>
     </g>
     <g id="xtick_3">
@@ -69,7 +69,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_3">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="196.617321" y="324.8475" transform="rotate(-0 196.617321 324.8475)">20</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="196.617321" y="324.8475" transform="rotate(-0 196.617321 324.8475)">20</text>
      </g>
     </g>
     <g id="xtick_4">
@@ -79,7 +79,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_4">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="250.092321" y="324.8475" transform="rotate(-0 250.092321 324.8475)">all</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="250.092321" y="324.8475" transform="rotate(-0 250.092321 324.8475)">all</text>
      </g>
     </g>
     <g id="xtick_5">
@@ -89,7 +89,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_5">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="303.567321" y="324.8475" transform="rotate(-0 303.567321 324.8475)">5</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="303.567321" y="324.8475" transform="rotate(-0 303.567321 324.8475)">5</text>
      </g>
     </g>
     <g id="xtick_6">
@@ -99,7 +99,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_6">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="357.042321" y="324.8475" transform="rotate(-0 357.042321 324.8475)">10</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="357.042321" y="324.8475" transform="rotate(-0 357.042321 324.8475)">10</text>
      </g>
     </g>
     <g id="xtick_7">
@@ -109,7 +109,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_7">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="410.517321" y="324.8475" transform="rotate(-0 410.517321 324.8475)">20</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="410.517321" y="324.8475" transform="rotate(-0 410.517321 324.8475)">20</text>
      </g>
     </g>
     <g id="xtick_8">
@@ -119,7 +119,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_8">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="463.992321" y="324.8475" transform="rotate(-0 463.992321 324.8475)">all</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="463.992321" y="324.8475" transform="rotate(-0 463.992321 324.8475)">all</text>
      </g>
     </g>
     <g id="xtick_9">
@@ -129,7 +129,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_9">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="517.467321" y="324.8475" transform="rotate(-0 517.467321 324.8475)">5</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="517.467321" y="324.8475" transform="rotate(-0 517.467321 324.8475)">5</text>
      </g>
     </g>
     <g id="xtick_10">
@@ -139,7 +139,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_10">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="570.942321" y="324.8475" transform="rotate(-0 570.942321 324.8475)">10</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="570.942321" y="324.8475" transform="rotate(-0 570.942321 324.8475)">10</text>
      </g>
     </g>
     <g id="xtick_11">
@@ -149,7 +149,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_11">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="624.417321" y="324.8475" transform="rotate(-0 624.417321 324.8475)">20</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="624.417321" y="324.8475" transform="rotate(-0 624.417321 324.8475)">20</text>
      </g>
     </g>
     <g id="xtick_12">
@@ -159,11 +159,11 @@ L 0 3.5
       </g>
      </g>
      <g id="text_12">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="677.892321" y="324.8475" transform="rotate(-0 677.892321 324.8475)">all</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="677.892321" y="324.8475" transform="rotate(-0 677.892321 324.8475)">all</text>
      </g>
     </g>
     <g id="text_13">
-     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="381.87" y="364.947109" transform="rotate(-0 381.87 364.947109)">Demonstrations per task, grouped by task</text>
+     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="381.87" y="364.947109" transform="rotate(-0 381.87 364.947109)">Demonstrations per task, grouped by task</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -184,7 +184,7 @@ L -3.5 0
       </g>
      </g>
      <g id="text_14">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="313.00375" transform="rotate(-0 54.02 313.00375)">0%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="313.00375" transform="rotate(-0 54.02 313.00375)">0%</text>
      </g>
     </g>
     <g id="ytick_2">
@@ -199,7 +199,7 @@ L 702.72 247.176
       </g>
      </g>
      <g id="text_15">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="252.01975" transform="rotate(-0 54.02 252.01975)">25%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="252.01975" transform="rotate(-0 54.02 252.01975)">25%</text>
      </g>
     </g>
     <g id="ytick_3">
@@ -214,7 +214,7 @@ L 702.72 186.192
       </g>
      </g>
      <g id="text_16">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="191.03575" transform="rotate(-0 54.02 191.03575)">50%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="191.03575" transform="rotate(-0 54.02 191.03575)">50%</text>
      </g>
     </g>
     <g id="ytick_4">
@@ -229,7 +229,7 @@ L 702.72 125.208
       </g>
      </g>
      <g id="text_17">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="130.05175" transform="rotate(-0 54.02 130.05175)">75%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="130.05175" transform="rotate(-0 54.02 130.05175)">75%</text>
      </g>
     </g>
     <g id="ytick_5">
@@ -244,11 +244,11 @@ L 702.72 64.224
       </g>
      </g>
      <g id="text_18">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="69.06775" transform="rotate(-0 54.02 69.06775)">100%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="54.02" y="69.06775" transform="rotate(-0 54.02 69.06775)">100%</text>
      </g>
     </g>
     <g id="text_19">
-     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="21.103203" y="186.192" transform="rotate(-90 21.103203 186.192)">Success rate of one checkpoint</text>
+     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="21.103203" y="186.192" transform="rotate(-90 21.103203 186.192)">Success rate of one checkpoint</text>
     </g>
    </g>
    <g id="line2d_23">
@@ -1018,13 +1018,13 @@ z
     </g>
    </g>
    <g id="text_20">
-    <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #0b0b0b" x="169.879821" y="349.62912" transform="rotate(-0 169.879821 349.62912)">t1 · bbq sauce</text>
+    <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0b0b0b" x="169.879821" y="349.62912" transform="rotate(-0 169.879821 349.62912)">BBQ sauce</text>
    </g>
    <g id="text_21">
-    <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #0b0b0b" x="383.779821" y="349.62912" transform="rotate(-0 383.779821 349.62912)">t2 · butter</text>
+    <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0b0b0b" x="383.779821" y="349.62912" transform="rotate(-0 383.779821 349.62912)">Butter</text>
    </g>
    <g id="text_22">
-    <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #0b0b0b" x="597.679821" y="349.62912" transform="rotate(-0 597.679821 349.62912)">t3 · chocolate pudding</text>
+    <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0b0b0b" x="597.679821" y="349.62912" transform="rotate(-0 597.679821 349.62912)">Chocolate pudding</text>
    </g>
    <g id="legend_1">
     <g id="line2d_145">
@@ -1050,12 +1050,12 @@ z
      </g>
     </g>
     <g id="text_23">
-     <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #0b0b0b" x="94.32" y="53.953102" transform="rotate(-0 94.32 53.953102)">ACT (from scratch): checkpoint spread 9.2× sampling noise</text>
+     <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="94.32" y="53.953102" transform="rotate(-0 94.32 53.953102)">ACT (from scratch): checkpoint variance 9.2 times sampling noise</text>
     </g>
     <g id="line2d_146">
-     <path d="M 366.201563 50.803102 
-L 375.201563 50.803102 
-L 384.201563 50.803102 
+     <path d="M 392.918906 50.803102 
+L 401.918906 50.803102 
+L 410.918906 50.803102 
 " style="fill: none; stroke: #2a78d6; stroke-width: 2.2; stroke-linecap: square"/>
      <defs>
       <path id="m5ce9a3811c" d="M 0 2.25 
@@ -1071,19 +1071,19 @@ z
 " style="stroke: #ffffff"/>
      </defs>
      <g>
-      <use xlink:href="#m5ce9a3811c" x="375.201563" y="50.803102" style="fill: #2a78d6; stroke: #ffffff"/>
+      <use xlink:href="#m5ce9a3811c" x="401.918906" y="50.803102" style="fill: #2a78d6; stroke: #ffffff"/>
      </g>
     </g>
     <g id="text_24">
-     <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #0b0b0b" x="391.401563" y="53.953102" transform="rotate(-0 391.401563 53.953102)">SmolVLA (fine-tuned): checkpoint spread 1.0× sampling noise</text>
+     <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="418.118906" y="53.953102" transform="rotate(-0 418.118906 53.953102)">SmolVLA (fine-tuned): checkpoint variance 1.0 times sampling noise</text>
     </g>
    </g>
   </g>
   <g id="text_25">
-   <text style="font-weight: 700; font-size: 12px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #0b0b0b" x="7.2" y="18.825" transform="rotate(-0 7.2 18.825)">ACT's checkpoints disagree far beyond sampling noise; SmolVLA's do not</text>
+   <text style="font-weight: 700; font-size: 12px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="7.2" y="18.825" transform="rotate(-0 7.2 18.825)">ACT's checkpoints disagree far beyond sampling noise; SmolVLA's do not</text>
   </g>
   <g id="text_26">
-   <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #52514e" x="7.2" y="34.128" transform="rotate(-0 7.2 34.128)">Each bar = one training run; its 3 dots = the evaluated checkpoints (50 episodes each). In each group: ACT seeds 1–3 left, SmolVLA seeds 1–2 right.</text>
+   <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="7.2" y="34.128" transform="rotate(-0 7.2 34.128)">Each bar is one training run and its 3 dots are the evaluated checkpoints (50 episodes each). In each group, ACT seeds 1 to 3 are on the left and SmolVLA seeds 1 and 2 on the right.</text>
   </g>
  </g>
  <defs>

@@ -54,7 +54,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_1">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="62.757514" y="281.452275" transform="rotate(-0 62.757514 281.452275)">0%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="62.757514" y="281.452275" transform="rotate(-0 62.757514 281.452275)">0%</text>
      </g>
     </g>
     <g id="xtick_2">
@@ -69,7 +69,7 @@ L 161.977798 54.417772
       </g>
      </g>
      <g id="text_2">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="161.977798" y="281.452275" transform="rotate(-0 161.977798 281.452275)">50%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="161.977798" y="281.452275" transform="rotate(-0 161.977798 281.452275)">50%</text>
      </g>
     </g>
     <g id="xtick_3">
@@ -84,11 +84,11 @@ L 261.198083 54.417772
       </g>
      </g>
      <g id="text_3">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="261.198083" y="281.452275" transform="rotate(-0 261.198083 281.452275)">100%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="261.198083" y="281.452275" transform="rotate(-0 261.198083 281.452275)">100%</text>
      </g>
     </g>
     <g id="text_4">
-     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="161.977798" y="297.551885" transform="rotate(-0 161.977798 297.551885)">ACT success on this scene</text>
+     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="161.977798" y="297.551885" transform="rotate(-0 161.977798 297.551885)">ACT success on this scene</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -109,7 +109,7 @@ L -3.5 0
       </g>
      </g>
      <g id="text_5">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #52514e" x="49.804297" y="263.655308" transform="rotate(-0 49.804297 263.655308)">0%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="49.804297" y="263.655308" transform="rotate(-0 49.804297 263.655308)">0%</text>
      </g>
     </g>
     <g id="ytick_2">
@@ -124,7 +124,7 @@ L 267.1513 159.591274
       </g>
      </g>
      <g id="text_6">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #52514e" x="49.804297" y="164.435024" transform="rotate(-0 49.804297 164.435024)">50%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="49.804297" y="164.435024" transform="rotate(-0 49.804297 164.435024)">50%</text>
      </g>
     </g>
     <g id="ytick_3">
@@ -139,11 +139,11 @@ L 267.1513 60.37099
       </g>
      </g>
      <g id="text_7">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #52514e" x="49.804297" y="65.21474" transform="rotate(-0 49.804297 65.21474)">100%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="49.804297" y="65.21474" transform="rotate(-0 49.804297 65.21474)">100%</text>
      </g>
     </g>
     <g id="text_8">
-     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="16.8875" y="159.591274" transform="rotate(-90 16.8875 159.591274)">SmolVLA success on this scene</text>
+     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="16.8875" y="159.591274" transform="rotate(-90 16.8875 159.591274)">SmolVLA success on this scene</text>
     </g>
    </g>
    <g id="line2d_13">
@@ -224,10 +224,10 @@ L 267.1513 264.764775
 " style="fill: none; stroke: #e4e3df; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_9">
-    <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #52514e" x="63.114707" y="256.350895" transform="rotate(-0 63.114707 256.350895)">Spearman ρ = -0.08</text>
+    <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="63.114707" y="256.350895" transform="rotate(-0 63.114707 256.350895)">Spearman ρ = -0.08</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #0b0b0b" x="56.804297" y="48.417772" transform="rotate(-0 56.804297 48.417772)">t1 · bbq sauce</text>
+    <text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="56.804297" y="48.417772" transform="rotate(-0 56.804297 48.417772)">BBQ sauce</text>
    </g>
   </g>
   <g id="axes_2">
@@ -252,7 +252,7 @@ L 295.785561 54.417772
       </g>
      </g>
      <g id="text_11">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="295.785561" y="281.452275" transform="rotate(-0 295.785561 281.452275)">0%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="295.785561" y="281.452275" transform="rotate(-0 295.785561 281.452275)">0%</text>
      </g>
     </g>
     <g id="xtick_5">
@@ -267,7 +267,7 @@ L 395.005845 54.417772
       </g>
      </g>
      <g id="text_12">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="395.005845" y="281.452275" transform="rotate(-0 395.005845 281.452275)">50%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="395.005845" y="281.452275" transform="rotate(-0 395.005845 281.452275)">50%</text>
      </g>
     </g>
     <g id="xtick_6">
@@ -282,11 +282,11 @@ L 494.22613 54.417772
       </g>
      </g>
      <g id="text_13">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="494.22613" y="281.452275" transform="rotate(-0 494.22613 281.452275)">100%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="494.22613" y="281.452275" transform="rotate(-0 494.22613 281.452275)">100%</text>
      </g>
     </g>
     <g id="text_14">
-     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="395.005845" y="297.551885" transform="rotate(-0 395.005845 297.551885)">ACT success on this scene</text>
+     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="395.005845" y="297.551885" transform="rotate(-0 395.005845 297.551885)">ACT success on this scene</text>
     </g>
    </g>
    <g id="matplotlib.axis_4">
@@ -392,10 +392,10 @@ L 500.179347 264.764775
 " style="fill: none; stroke: #e4e3df; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_15">
-    <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #52514e" x="296.142754" y="256.350895" transform="rotate(-0 296.142754 256.350895)">Spearman ρ = 0.48</text>
+    <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="296.142754" y="256.350895" transform="rotate(-0 296.142754 256.350895)">Spearman ρ = 0.48</text>
    </g>
    <g id="text_16">
-    <text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #0b0b0b" x="289.832344" y="48.417772" transform="rotate(-0 289.832344 48.417772)">t2 · butter</text>
+    <text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="289.832344" y="48.417772" transform="rotate(-0 289.832344 48.417772)">Butter</text>
    </g>
   </g>
   <g id="axes_3">
@@ -420,7 +420,7 @@ L 528.813608 54.417772
       </g>
      </g>
      <g id="text_17">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="528.813608" y="281.452275" transform="rotate(-0 528.813608 281.452275)">0%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="528.813608" y="281.452275" transform="rotate(-0 528.813608 281.452275)">0%</text>
      </g>
     </g>
     <g id="xtick_8">
@@ -435,7 +435,7 @@ L 628.033892 54.417772
       </g>
      </g>
      <g id="text_18">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="628.033892" y="281.452275" transform="rotate(-0 628.033892 281.452275)">50%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="628.033892" y="281.452275" transform="rotate(-0 628.033892 281.452275)">50%</text>
      </g>
     </g>
     <g id="xtick_9">
@@ -450,11 +450,11 @@ L 727.254176 54.417772
       </g>
      </g>
      <g id="text_19">
-      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="727.254176" y="281.452275" transform="rotate(-0 727.254176 281.452275)">100%</text>
+      <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="727.254176" y="281.452275" transform="rotate(-0 727.254176 281.452275)">100%</text>
      </g>
     </g>
     <g id="text_20">
-     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #52514e" x="628.033892" y="297.551885" transform="rotate(-0 628.033892 297.551885)">ACT success on this scene</text>
+     <text style="font-size: 10px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="628.033892" y="297.551885" transform="rotate(-0 628.033892 297.551885)">ACT success on this scene</text>
     </g>
    </g>
    <g id="matplotlib.axis_6">
@@ -560,17 +560,17 @@ L 733.207394 264.764775
 " style="fill: none; stroke: #e4e3df; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_21">
-    <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #52514e" x="529.170801" y="256.350895" transform="rotate(-0 529.170801 256.350895)">Spearman ρ = 0.13</text>
+    <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="529.170801" y="256.350895" transform="rotate(-0 529.170801 256.350895)">Spearman ρ = 0.13</text>
    </g>
    <g id="text_22">
-    <text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #0b0b0b" x="522.860391" y="48.417772" transform="rotate(-0 522.860391 48.417772)">t3 · chocolate pudding</text>
+    <text style="font-size: 10.5px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="522.860391" y="48.417772" transform="rotate(-0 522.860391 48.417772)">Chocolate pudding</text>
    </g>
   </g>
   <g id="text_23">
-   <text style="font-weight: 700; font-size: 12px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #0b0b0b" x="41.748437" y="18.825" transform="rotate(-0 41.748437 18.825)">Do both methods fail on the same starting scenes? Each dot is one of the 50 scenes</text>
+   <text style="font-weight: 700; font-size: 12px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="41.748437" y="18.825" transform="rotate(-0 41.748437 18.825)">Do both methods fail on the same starting scenes? Each dot is one of the 50 scenes</text>
   </g>
   <g id="text_24">
-   <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #52514e" x="41.748437" y="30.456" transform="rotate(-0 41.748437 30.456)">Pooled over all demo sizes, seeds and checkpoints (ACT 36, SmolVLA 24 trials per scene)</text>
+   <text style="font-size: 9px; font-family: 'Inter', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="41.748437" y="30.456" transform="rotate(-0 41.748437 30.456)">Pooled over all demo sizes, seeds and checkpoints (ACT 36, SmolVLA 24 trials per scene)</text>
   </g>
  </g>
  <defs>
