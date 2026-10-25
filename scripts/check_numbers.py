@@ -16,6 +16,7 @@ For each data line the script checks that
      (78% for 78.0, 5.3 for 5.344, 30,000 for 30000).
 "manual:" lines are listed for checking by eye. Numbers in the prose that no quoted text covers are
 reported as warnings (small experiment-design constants such as 3, 5, 10, 20, 50 are ignored).
+Placeholders (TODO, TBD, XXX) outside the notes fail the check, so a draft cannot be published with one.
 
 Usage:
   python scripts/check_numbers.py README.md                 # check; exit code 1 if anything fails
@@ -117,6 +118,9 @@ def check(path: Path, show_manual: bool) -> int:
         for n in numbers(prose(region)):
             if n.lstrip("-") not in IGNORE and as_float(n) not in covered:
                 warns.append(f"{pid}: number {n} in the prose is not covered by a CHECK line")
+    for i, line in enumerate(COMMENT.sub("", src).splitlines(), 1):
+        if re.search(r"\bTODO\b|\bTBD\b|\bXXX\b", line):
+            fails.append(f"placeholder left in the published text: {line.strip()[:80]}")
     print(f"{path}: {n_data} data checks, {len(manual)} manual, {len(fails)} failed, {len(warns)} warnings")
     for f in fails:
         print("  FAIL", f)
