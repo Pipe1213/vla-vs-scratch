@@ -96,7 +96,7 @@ def load_diag(path: Path) -> pd.DataFrame:
 
 
 # --------------------------------------------------------------------------------------------- validation
-def validate(df: pd.DataFrame, cfg: dict, splits: dict) -> None:
+def validate(df: pd.DataFrame, cfg: dict, splits: dict, check_frozen: bool = True) -> None:
     err = []
     task_ids = cfg["tasks"]
     ckpts = {m: cfg["methods"][m]["eval_checkpoints"] for m in METHODS}
@@ -131,7 +131,7 @@ def validate(df: pd.DataFrame, cfg: dict, splits: dict) -> None:
             err.append(f"{where}: rename_map missing")
         if f"{r.name}/checkpoints/{r.label}" not in str(r.checkpoint).replace("\\", "/"):
             err.append(f"{where}: checkpoint path {r.checkpoint} does not match run/label")
-    if not err:  # frozen numbers (only meaningful once the structure is right)
+    if not err and check_frozen:  # frozen numbers (only meaningful once the structure is right)
         for (m, seed), vals in FROZEN.items():
             for s, v in zip(SIZES, vals):
                 g = df.query("method==@m and seed==@seed and size==@s")
@@ -140,7 +140,8 @@ def validate(df: pd.DataFrame, cfg: dict, splits: dict) -> None:
                     err.append(f"{m} seed{seed} n{s}: {got}% != frozen {v}%")
     if err:
         sys.exit("results.csv failed validation:\n  " + "\n  ".join(err))
-    print(f"validation OK: {len(df)} rows, {df['name'].nunique()} runs, frozen numbers reproduced")
+    print(f"validation OK: {len(df)} rows, {df['name'].nunique()} runs, "
+          + ("frozen numbers reproduced" if check_frozen else "frozen-number check SKIPPED"))
 
 
 # --------------------------------------------------------------------------------------------- statistics
@@ -184,22 +185,32 @@ def per_task(df: pd.DataFrame) -> pd.DataFrame:
     return out.sort_values(["method", "task", "size"]).reset_index(drop=True)
 
 
-def checkpoint_test(counts: np.ndarray, n: int, rng: np.random.Generator) -> float:
-    """Monte Carlo p-value: are the checkpoints' success counts more different than sampling alone predicts?
-    Null: all checkpoints have the run's pooled success rate; statistic = chi-square of the k x 2 table."""
-    p = counts.sum() / (n * len(counts))
-    if p in (0.0, 1.0):
-        return 1.0
+def cochran_q(x: np.ndarray) -> float:
+    """Cochran's Q for a (checkpoints x scenes) 0/1 matrix; the last axis is scenes, leading axes are batches."""
+    k = x.shape[-2]
+    col = x.sum(axis=-1)                  # successes per checkpoint
+    row = x.sum(axis=-2)                  # successes per scene
+    tot = row.sum(axis=-1)
+    den = k * tot - (row ** 2).sum(axis=-1)
+    num = (k - 1) * (k * (col ** 2).sum(axis=-1) - tot ** 2)
+    return np.where(den > 0, num / np.where(den > 0, den, 1), 0.0)
 
-    def chi2(c):
-        e = c.sum(axis=-1, keepdims=True) / c.shape[-1]
-        return (((c - e) ** 2) / (e * (1 - e / n))).sum(axis=-1)
-    sims = rng.binomial(n, p, size=(MC_SIMS, len(counts))).astype(float)
-    ok = (sims.sum(axis=1) > 0) & (sims.sum(axis=1) < n * len(counts))
-    obs = chi2(counts.astype(float)[None, :])[0]
-    sim_stat = np.zeros(MC_SIMS)
-    sim_stat[ok] = chi2(sims[ok])
-    return float((1 + (sim_stat >= obs - 1e-9).sum()) / (MC_SIMS + 1))
+
+def checkpoint_test(x: np.ndarray, rng: np.random.Generator) -> tuple[float, float]:
+    """Do a run's checkpoints differ more than chance, on the SAME 50 scenes? (paired test, Phase 4b audit)
+    x: (checkpoints x scenes) 0/1 outcomes; scene i is the same LIBERO initial state for every checkpoint.
+    Statistic: Cochran's Q. p_exact: permutation test that shuffles checkpoint labels within each scene
+    (exact under the null that the checkpoints are interchangeable; used for the reported counts).
+    p_chi2: the usual chi-square approximation (unreliable when most scenes succeed or fail at every checkpoint).
+    Replaces the 24 Oct test, which treated the 3 x 50 episodes as independent binomial draws."""
+    obs = float(cochran_q(x.astype(float)))
+    if obs == 0.0:
+        return 1.0, 1.0
+    p_chi2 = float(stats.chi2.sf(obs, x.shape[0] - 1))
+    idx = rng.random((MC_SIMS,) + x.shape).argsort(axis=1)          # independent shuffle of each scene's column
+    sims = cochran_q(np.take_along_axis(np.broadcast_to(x, (MC_SIMS,) + x.shape), idx, axis=1).astype(float))
+    p_exact = float((1 + (sims >= obs - 1e-9).sum()) / (MC_SIMS + 1))
+    return p_exact, p_chi2
 
 
 def stability(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -210,6 +221,8 @@ def stability(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     for (m, t, s, seed), g in df.groupby(["method", "task", "size", "seed"]):
         g = g.sort_values("label")
         counts = g["n_success"].to_numpy()
+        outcomes = np.array([[int(c) for c in st] for st in g["successes"]])   # checkpoints x scenes
+        p_exact, p_chi2 = checkpoint_test(outcomes, rng)
         n_tot = len(counts) * N_EPS
         pbar = counts.sum() / n_tot
         run_rows.append(dict(method=m, task=t, size=s, seed=seed, run=g["name"].iloc[0],
@@ -217,7 +230,7 @@ def stability(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
                              ckpt_range=int(counts.max() - counts.min()),
                              var_obs=float(np.var(counts / N_EPS, ddof=1)),
                              var_sampling=pbar * (1 - pbar) * n_tot / (n_tot - 1) / N_EPS,
-                             p_ckpt=checkpoint_test(counts, N_EPS, rng)))
+                             p_ckpt=p_exact, p_ckpt_chi2=p_chi2))
     runs = pd.DataFrame(run_rows)
     summ = []
     for m, g in runs.groupby("method"):
@@ -232,11 +245,38 @@ def stability(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             ckpt_sd_extra=100 * np.sqrt(max(0.0, ck_obs - ck_samp)),
             ckpt_range_median=float(g["ckpt_range"].median()), ckpt_range_max=int(g["ckpt_range"].max()),
             runs_ckpt_differ=int((g["p_ckpt"] < 0.05).sum()),
+            runs_ckpt_differ_chi2=int((g["p_ckpt_chi2"] < 0.05).sum()),
+            runs_ckpt_differ_expected=0.05 * len(g),
             seed_sd_obs=100 * np.sqrt(seed_obs), seed_sd_expected=100 * np.sqrt(seed_exp), seed_ratio=seed_obs / seed_exp,
             seed_sd_extra=100 * np.sqrt(max(0.0, seed_obs - seed_exp)),
             seed_range_max=float(cell["mean"].agg(lambda x: x.max() - x.min()).max() * 100),
         ))
     return runs, pd.DataFrame(summ).set_index("method").loc[METHODS].reset_index()
+
+
+def final_checkpoint(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:
+    """Success of the LAST evaluated checkpoint only (ACT 10k, SmolVLA 5k): one deployable policy per run,
+    pooled over the 3 tasks (150 episodes per seed). Added 25 Oct (Phase 4b audit) next to the 3-checkpoint mean."""
+    rows = []
+    for m in METHODS:
+        last = cfg["methods"][m]["eval_checkpoints"][-1]
+        for s in SIZES:
+            g = df[(df.method == m) & (df["size"] == s) & (df.label == last)]
+            per_seed = {seed: pct(x["n_success"].sum(), x["n_episodes"].sum()) for seed, x in g.groupby("seed")}
+            k, n = int(g["n_success"].sum()), int(g["n_episodes"].sum())
+            lo, hi = wilson(k, n)
+            rows.append(dict(method=m, size=s, checkpoint=last, per_seed=per_seed,
+                             mean=float(np.mean(list(per_seed.values()))), seed_min=min(per_seed.values()),
+                             seed_max=max(per_seed.values()), k=k, n=n, wilson_lo=lo, wilson_hi=hi))
+    return pd.DataFrame(rows)
+
+
+def final_claim(fin: pd.DataFrame) -> dict:
+    """Robust claim with the final checkpoint only: SmolVLA's worst seed vs ACT's best all-demos seed (pooled)."""
+    f = fin.set_index(["method", "size"])
+    act_best = f.loc[("act", "all"), "seed_max"]
+    worst = {s: f.loc[("smolvla", s), "seed_min"] for s in SIZES}
+    return dict(act_best_seed_all=act_best, smolvla_worst_seed=worst, holds_at=[s for s in SIZES if worst[s] > act_best])
 
 
 def demos_to_50(head: pd.DataFrame) -> dict:
@@ -561,7 +601,7 @@ def size_label(s, n_all=None):
     return f"all ({n_all})" if s == "all" and n_all else s
 
 
-def report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl=None) -> str:
+def report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl=None, fin=None, fclaim=None) -> str:
     out = ["# Results analysis", "",
            "Generated by `scripts/analyze.py` from `results/results.csv` — do not edit by hand.",
            "Unit of replication = training seed; a seed point pools 3 tasks × 3 checkpoints × 50 episodes. "
@@ -581,6 +621,24 @@ def report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl=None) -> st
     gap = [head[(head.method == "smolvla") & (head["size"] == s)]["mean"].iloc[0]
            - head[(head.method == "act") & (head["size"] == s)]["mean"].iloc[0] for s in SIZES]
     out += ["Gap (SmolVLA − ACT, mean over seeds): " + " · ".join(f"{s}: +{g:.1f}" for s, g in zip(SIZES, gap)), ""]
+
+    # 1b final checkpoint only
+    if fin is not None:
+        out += ["### 1b. Final checkpoint only (one deployable policy per run)", "",
+                "Success of the last evaluated checkpoint (ACT 10k steps, SmolVLA 5k), pooled over 3 tasks "
+                "(150 episodes per seed), instead of the mean of the last 3 checkpoints.", ""]
+        rows = []
+        for m in METHODS:
+            for s in SIZES:
+                h = fin[(fin.method == m) & (fin["size"] == s)].iloc[0]
+                rows.append([METHOD_LABEL[m], size_label(s, "45–50"), " / ".join(f1(h.per_seed[k]) for k in SEEDS[m]),
+                             f"**{f1(h['mean'])}**", f"{f1(h.seed_min)}–{f1(h.seed_max)}", f"{h.k}/{h.n}",
+                             f"{f1(h.wilson_lo)}–{f1(h.wilson_hi)}"])
+        out += [md_table(["Method", "Demos", "Per seed (%)", "Mean (%)", "Seed range", "Pooled episodes",
+                          "Wilson 95% CI (eval only)"], rows), ""]
+        out += [f"Robust claim with the final checkpoint: ACT's best seed with all demos = {f1(fclaim['act_best_seed_all'])}%; "
+                f"SmolVLA's worst seed at 5/10/20/all = " + " / ".join(f1(fclaim['smolvla_worst_seed'][s]) for s in SIZES)
+                + f"% → holds at {', '.join(fclaim['holds_at']) or 'none'}.", ""]
 
     # 2 robust claim + demos to 50
     out += ["## 2. Claims that do not depend on how uncertainty is computed", "",
@@ -617,22 +675,26 @@ def report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl=None) -> st
             "*Checkpoints:* spread of the 3 evaluated checkpoints of a run vs the spread that sampling 50 episodes "
             "alone would produce if the checkpoints were equally good. *Seeds:* spread of run means across seeds vs "
             "what checkpoint + sampling noise alone would produce. \"Extra SD\" = the part not explained by the level "
-            "below (percentage points). A run's checkpoints \"differ\" if a Monte Carlo test against sampling noise "
-            "gives p < 0.05 (≈5% of runs expected by chance).", ""]
+            "below (percentage points). A run's checkpoints \"differ\" if a paired test over the 50 shared scenes "
+            "(Cochran's Q, exact permutation p-value) gives p < 0.05; about 5% of runs would differ by chance. "
+            "In brackets: the same test with the chi-square approximation.", ""]
     rows = []
     for r in summ.itertuples():
         rows.append([METHOD_LABEL[r.method], f"{r.ckpt_sd_obs:.1f} vs {r.ckpt_sd_sampling:.1f}", f"{r.ckpt_ratio:.1f}×",
                      f"{r.ckpt_sd_extra:.1f}", f"{r.ckpt_range_median:.0f} / {r.ckpt_range_max}",
-                     f"{r.runs_ckpt_differ}/{r.n_runs}", f"{r.seed_sd_obs:.1f} vs {r.seed_sd_expected:.1f}",
+                     f"{r.runs_ckpt_differ}/{r.n_runs} ({r.runs_ckpt_differ_chi2}; {r.runs_ckpt_differ_expected:.1f} by chance)",
+                     f"{r.seed_sd_obs:.1f} vs {r.seed_sd_expected:.1f}",
                      f"{r.seed_ratio:.1f}×", f"{r.seed_sd_extra:.1f}", f"{r.seed_range_max:.0f}"])
     out += [md_table(["Method", "Checkpoint SD: observed vs sampling (pts)", "Variance ratio", "Extra SD (pts)",
                       "Checkpoint range, median / max (of 50)", "Runs whose checkpoints differ",
                       "Seed SD: observed vs expected (pts)", "Variance ratio", "Extra SD (pts)",
                       "Max seed range (pts)"], rows), ""]
     out += ["<details><summary>Per run: successes /50 at each checkpoint</summary>", ""]
-    rows = [[r.run, size_label(r.size), "/".join(map(str, r.ckpt_counts)), r.ckpt_range, f"{r.p_ckpt:.3f}"]
+    rows = [[r.run, size_label(r.size), "/".join(map(str, r.ckpt_counts)), r.ckpt_range, f"{r.p_ckpt:.3f}",
+             f"{r.p_ckpt_chi2:.3f}"]
             for r in runs.assign(o=runs["size"].map(SIZES.index)).sort_values(["method", "task", "o", "seed"]).itertuples()]
-    out += [md_table(["Run", "Demos", "Checkpoints", "Range", "p (checkpoints differ)"], rows), "", "</details>", ""]
+    out += [md_table(["Run", "Demos", "Checkpoints", "Range", "p, exact (paired)", "p, chi-square"], rows), "",
+            "</details>", ""]
 
     # 5 scenes
     out += ["## 5. Starting scenes (paired: episode i is the same scene in every run)", "",
@@ -711,11 +773,17 @@ def jsonable(o):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser(description="Phase 4 analysis (see module docstring).")
+    ap.add_argument("--skip-frozen-check", action="store_true",
+                    help="still validate the structure of results.csv, but not the numbers frozen on 24 Oct "
+                         "(for analysing new runs; the published numbers always run with the check)")
+    args = ap.parse_args()
     cfg = yaml.safe_load(RUNS_YAML.read_text())
     splits = json.loads(SPLITS.read_text())
     n_all = {t: splits["tasks"][t]["n_available"] for t in TASKS}
     df = load_results(RESULTS)
-    validate(df, cfg, splits)
+    validate(df, cfg, splits, check_frozen=not args.skip_frozen_check)
     diag = load_diag(DIAG)
 
     head = headline(df)
@@ -723,6 +791,8 @@ def main():
     runs, summ = stability(df)
     d50 = demos_to_50(head)
     claim = robust_claim(df, n_all)
+    fin = final_checkpoint(df, cfg)
+    fclaim = final_claim(fin)
     sc = scenes(df)
     bt = butter(diag, df)
     comp = compute_summary(df, diag)
@@ -735,7 +805,7 @@ def main():
     fig_stability(runs, summ)
     fig_scenes(sc)
 
-    MD_OUT.write_text(report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl) + "\n")
+    MD_OUT.write_text(report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl, fin, fclaim) + "\n")
     summary = dict(
         n_rows=len(df), n_runs=int(df["name"].nunique()), n_episodes=int(df["n_episodes"].sum()),
         demos_all=n_all, seeds=SEEDS,
@@ -745,6 +815,10 @@ def main():
                     - head[(head.method == "act") & (head["size"] == s)]["mean"].iloc[0] for s in SIZES},
         per_task={f"{r.method}/{r.task}/{r.size}": dict(per_seed=r.per_seed, mean=r.mean) for r in pt.itertuples()},
         stability=summ.set_index("method").to_dict("index"),
+        final_checkpoint={m: {s: {k: v for k, v in r.items() if k not in ("method", "size")}
+                              for s, r in fin[fin.method == m].set_index("size").to_dict("index").items()}
+                          for m in METHODS},
+        final_checkpoint_claim=fclaim,
         demos_to_50=d50, robust_claim=claim,
         scenes={r.task: dict(spearman=r.spearman, spearman_p=r.spearman_p, act_scene_ratio=r.act_scene_ratio,
                              smolvla_scene_ratio=r.smolvla_scene_ratio, both_below_median=r.both_below_median)

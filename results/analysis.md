@@ -18,6 +18,23 @@ Unit of replication = training seed; a seed point pools 3 tasks × 3 checkpoints
 
 Gap (SmolVLA − ACT, mean over seeds): 5: +60.1 · 10: +47.9 · 20: +41.1 · all: +31.9
 
+### 1b. Final checkpoint only (one deployable policy per run)
+
+Success of the last evaluated checkpoint (ACT 10k steps, SmolVLA 5k), pooled over 3 tasks (150 episodes per seed), instead of the mean of the last 3 checkpoints.
+
+| Method | Demos | Per seed (%) | Mean (%) | Seed range | Pooled episodes | Wilson 95% CI (eval only) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| SmolVLA (fine-tuned) | 5 | 77.3 / 76.7 | **77.0** | 76.7–77.3 | 231/300 | 71.9–81.4 |
+| SmolVLA (fine-tuned) | 10 | 82.0 / 82.7 | **82.3** | 82.0–82.7 | 247/300 | 77.6–86.2 |
+| SmolVLA (fine-tuned) | 20 | 72.0 / 74.0 | **73.0** | 72.0–74.0 | 219/300 | 67.7–77.7 |
+| SmolVLA (fine-tuned) | all (45–50) | 84.7 / 86.0 | **85.3** | 84.7–86.0 | 256/300 | 80.9–88.9 |
+| ACT (from scratch) | 5 | 16.0 / 8.7 / 52.7 | **25.8** | 8.7–52.7 | 116/450 | 22.0–30.0 |
+| ACT (from scratch) | 10 | 31.3 / 63.3 / 40.0 | **44.9** | 31.3–63.3 | 202/450 | 40.4–49.5 |
+| ACT (from scratch) | 20 | 44.0 / 52.7 / 15.3 | **37.3** | 15.3–52.7 | 168/450 | 33.0–41.9 |
+| ACT (from scratch) | all (45–50) | 62.7 / 37.3 / 59.3 | **53.1** | 37.3–62.7 | 239/450 | 48.5–57.7 |
+
+Robust claim with the final checkpoint: ACT's best seed with all demos = 62.7%; SmolVLA's worst seed at 5/10/20/all = 76.7 / 82.0 / 72.0 / 84.7% → holds at 5, 10, 20, all.
+
 ## 2. Claims that do not depend on how uncertainty is computed
 
 Demo counts at which SmolVLA's **worst** seed beats ACT's **best** seed with all demos:
@@ -55,77 +72,77 @@ Demos needed to reach 50% (first size where the mean over seeds is ≥ 50%):
 
 ## 4. Stability: checkpoints and seeds compared with sampling noise
 
-*Checkpoints:* spread of the 3 evaluated checkpoints of a run vs the spread that sampling 50 episodes alone would produce if the checkpoints were equally good. *Seeds:* spread of run means across seeds vs what checkpoint + sampling noise alone would produce. "Extra SD" = the part not explained by the level below (percentage points). A run's checkpoints "differ" if a Monte Carlo test against sampling noise gives p < 0.05 (≈5% of runs expected by chance).
+*Checkpoints:* spread of the 3 evaluated checkpoints of a run vs the spread that sampling 50 episodes alone would produce if the checkpoints were equally good. *Seeds:* spread of run means across seeds vs what checkpoint + sampling noise alone would produce. "Extra SD" = the part not explained by the level below (percentage points). A run's checkpoints "differ" if a paired test over the 50 shared scenes (Cochran's Q, exact permutation p-value) gives p < 0.05; about 5% of runs would differ by chance. In brackets: the same test with the chi-square approximation.
 
 | Method | Checkpoint SD: observed vs sampling (pts) | Variance ratio | Extra SD (pts) | Checkpoint range, median / max (of 50) | Runs whose checkpoints differ | Seed SD: observed vs expected (pts) | Variance ratio | Extra SD (pts) | Max seed range (pts) |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| SmolVLA (fine-tuned) | 5.3 vs 5.3 | 1.0× | 0.8 | 4 / 10 | 0/24 | 4.3 vs 3.1 | 2.0× | 3.0 | 11 |
-| ACT (from scratch) | 17.8 vs 5.9 | 9.2× | 16.8 | 12 / 40 | 26/36 | 17.3 vs 10.3 | 2.8× | 14.0 | 47 |
+| SmolVLA (fine-tuned) | 5.3 vs 5.3 | 1.0× | 0.8 | 4 / 10 | 2/24 (3; 1.2 by chance) | 4.3 vs 3.1 | 2.0× | 3.0 | 11 |
+| ACT (from scratch) | 17.8 vs 5.9 | 9.2× | 16.8 | 12 / 40 | 30/36 (30; 1.8 by chance) | 17.3 vs 10.3 | 2.8× | 14.0 | 47 |
 
 <details><summary>Per run: successes /50 at each checkpoint</summary>
 
-| Run | Demos | Checkpoints | Range | p (checkpoints differ) |
-| --- | ---: | ---: | ---: | ---: |
-| act_obj_t1_n05 | 5 | 3/5/14 | 11 | 0.004 |
-| act_obj_t1_n05_s2 | 5 | 10/6/10 | 4 | 0.493 |
-| act_obj_t1_n05_s3 | 5 | 17/27/39 | 22 | 0.000 |
-| act_obj_t1_n10 | 10 | 3/12/35 | 32 | 0.000 |
-| act_obj_t1_n10_s2 | 10 | 41/33/43 | 10 | 0.036 |
-| act_obj_t1_n10_s3 | 10 | 35/42/44 | 9 | 0.056 |
-| act_obj_t1_n20 | 20 | 15/30/23 | 15 | 0.011 |
-| act_obj_t1_n20_s2 | 20 | 23/44/35 | 21 | 0.000 |
-| act_obj_t1_n20_s3 | 20 | 26/5/6 | 21 | 0.000 |
-| act_obj_t1_nall | all | 31/38/47 | 16 | 0.000 |
-| act_obj_t1_nall_s2 | all | 37/41/31 | 10 | 0.081 |
-| act_obj_t1_nall_s3 | all | 31/24/41 | 17 | 0.001 |
-| act_obj_t2_n05 | 5 | 0/0/4 | 4 | 0.011 |
-| act_obj_t2_n05_s2 | 5 | 16/1/0 | 16 | 0.000 |
-| act_obj_t2_n05_s3 | 5 | 0/0/23 | 23 | 0.000 |
-| act_obj_t2_n10 | 10 | 3/3/2 | 1 | 0.913 |
-| act_obj_t2_n10_s2 | 10 | 20/21/18 | 3 | 0.835 |
-| act_obj_t2_n10_s3 | 10 | 4/1/8 | 7 | 0.044 |
-| act_obj_t2_n20 | 20 | 15/24/16 | 9 | 0.130 |
-| act_obj_t2_n20_s2 | 20 | 15/1/13 | 14 | 0.000 |
-| act_obj_t2_n20_s3 | 20 | 1/2/8 | 7 | 0.014 |
-| act_obj_t2_nall | all | 17/15/18 | 3 | 0.819 |
-| act_obj_t2_nall_s2 | all | 9/49/21 | 40 | 0.000 |
-| act_obj_t2_nall_s3 | all | 17/38/15 | 23 | 0.000 |
-| act_obj_t3_n05 | 5 | 3/12/6 | 9 | 0.033 |
-| act_obj_t3_n05_s2 | 5 | 2/1/3 | 2 | 0.678 |
-| act_obj_t3_n05_s3 | 5 | 6/17/17 | 11 | 0.015 |
-| act_obj_t3_n10 | 10 | 6/3/10 | 7 | 0.105 |
-| act_obj_t3_n10_s2 | 10 | 11/22/34 | 23 | 0.000 |
-| act_obj_t3_n10_s3 | 10 | 4/1/8 | 7 | 0.046 |
-| act_obj_t3_n20 | 20 | 12/13/27 | 15 | 0.002 |
-| act_obj_t3_n20_s2 | 20 | 10/36/31 | 26 | 0.000 |
-| act_obj_t3_n20_s3 | 20 | 4/3/9 | 6 | 0.114 |
-| act_obj_t3_nall | all | 41/24/29 | 17 | 0.002 |
-| act_obj_t3_nall_s2 | all | 10/37/4 | 33 | 0.000 |
-| act_obj_t3_nall_s3 | all | 18/32/33 | 15 | 0.003 |
-| smolvla_obj_t1_n05 | 5 | 32/33/33 | 1 | 0.970 |
-| smolvla_obj_t1_n05_s2 | 5 | 37/36/29 | 8 | 0.178 |
-| smolvla_obj_t1_n10 | 10 | 41/40/44 | 4 | 0.545 |
-| smolvla_obj_t1_n10_s2 | 10 | 47/41/44 | 6 | 0.182 |
-| smolvla_obj_t1_n20 | 20 | 25/24/33 | 9 | 0.150 |
-| smolvla_obj_t1_n20_s2 | 20 | 32/30/30 | 2 | 0.882 |
-| smolvla_obj_t1_nall | all | 43/35/39 | 8 | 0.152 |
-| smolvla_obj_t1_nall_s2 | all | 36/40/38 | 4 | 0.656 |
-| smolvla_obj_t2_n05 | 5 | 32/35/35 | 3 | 0.759 |
-| smolvla_obj_t2_n05_s2 | 5 | 36/41/39 | 5 | 0.499 |
-| smolvla_obj_t2_n10 | 10 | 50/50/49 | 1 | 0.489 |
-| smolvla_obj_t2_n10_s2 | 10 | 43/46/47 | 4 | 0.392 |
-| smolvla_obj_t2_n20 | 20 | 49/47/49 | 2 | 0.551 |
-| smolvla_obj_t2_n20_s2 | 20 | 46/47/48 | 2 | 0.746 |
-| smolvla_obj_t2_nall | all | 48/44/41 | 7 | 0.088 |
-| smolvla_obj_t2_nall_s2 | all | 44/45/42 | 3 | 0.674 |
-| smolvla_obj_t3_n05 | 5 | 48/46/48 | 2 | 0.600 |
-| smolvla_obj_t3_n05_s2 | 5 | 46/49/47 | 3 | 0.452 |
-| smolvla_obj_t3_n10 | 10 | 32/30/30 | 2 | 0.886 |
-| smolvla_obj_t3_n10_s2 | 10 | 38/37/33 | 5 | 0.504 |
-| smolvla_obj_t3_n20 | 20 | 35/36/26 | 10 | 0.071 |
-| smolvla_obj_t3_n20_s2 | 20 | 40/38/33 | 7 | 0.261 |
-| smolvla_obj_t3_nall | all | 50/49/47 | 3 | 0.193 |
-| smolvla_obj_t3_nall_s2 | all | 46/50/49 | 4 | 0.064 |
+| Run | Demos | Checkpoints | Range | p, exact (paired) | p, chi-square |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| act_obj_t1_n05 | 5 | 3/5/14 | 11 | 0.001 | 0.002 |
+| act_obj_t1_n05_s2 | 5 | 10/6/10 | 4 | 0.529 | 0.499 |
+| act_obj_t1_n05_s3 | 5 | 17/27/39 | 22 | 0.000 | 0.000 |
+| act_obj_t1_n10 | 10 | 3/12/35 | 32 | 0.000 | 0.000 |
+| act_obj_t1_n10_s2 | 10 | 41/33/43 | 10 | 0.021 | 0.018 |
+| act_obj_t1_n10_s3 | 10 | 35/42/44 | 9 | 0.007 | 0.008 |
+| act_obj_t1_n20 | 20 | 15/30/23 | 15 | 0.007 | 0.007 |
+| act_obj_t1_n20_s2 | 20 | 23/44/35 | 21 | 0.000 | 0.000 |
+| act_obj_t1_n20_s3 | 20 | 26/5/6 | 21 | 0.000 | 0.000 |
+| act_obj_t1_nall | all | 31/38/47 | 16 | 0.000 | 0.000 |
+| act_obj_t1_nall_s2 | all | 37/41/31 | 10 | 0.028 | 0.027 |
+| act_obj_t1_nall_s3 | all | 31/24/41 | 17 | 0.000 | 0.000 |
+| act_obj_t2_n05 | 5 | 0/0/4 | 4 | 0.037 | 0.018 |
+| act_obj_t2_n05_s2 | 5 | 16/1/0 | 16 | 0.000 | 0.000 |
+| act_obj_t2_n05_s3 | 5 | 0/0/23 | 23 | 0.000 | 0.000 |
+| act_obj_t2_n10 | 10 | 3/3/2 | 1 | 1.000 | 0.819 |
+| act_obj_t2_n10_s2 | 10 | 20/21/18 | 3 | 0.695 | 0.584 |
+| act_obj_t2_n10_s3 | 10 | 4/1/8 | 7 | 0.008 | 0.010 |
+| act_obj_t2_n20 | 20 | 15/24/16 | 9 | 0.022 | 0.017 |
+| act_obj_t2_n20_s2 | 20 | 15/1/13 | 14 | 0.000 | 0.000 |
+| act_obj_t2_n20_s3 | 20 | 1/2/8 | 7 | 0.010 | 0.008 |
+| act_obj_t2_nall | all | 17/15/18 | 3 | 0.770 | 0.692 |
+| act_obj_t2_nall_s2 | all | 9/49/21 | 40 | 0.000 | 0.000 |
+| act_obj_t2_nall_s3 | all | 17/38/15 | 23 | 0.000 | 0.000 |
+| act_obj_t3_n05 | 5 | 3/12/6 | 9 | 0.008 | 0.008 |
+| act_obj_t3_n05_s2 | 5 | 2/1/3 | 2 | 0.776 | 0.368 |
+| act_obj_t3_n05_s3 | 5 | 6/17/17 | 11 | 0.011 | 0.010 |
+| act_obj_t3_n10 | 10 | 6/3/10 | 7 | 0.026 | 0.025 |
+| act_obj_t3_n10_s2 | 10 | 11/22/34 | 23 | 0.000 | 0.000 |
+| act_obj_t3_n10_s3 | 10 | 4/1/8 | 7 | 0.015 | 0.016 |
+| act_obj_t3_n20 | 20 | 12/13/27 | 15 | 0.000 | 0.000 |
+| act_obj_t3_n20_s2 | 20 | 10/36/31 | 26 | 0.000 | 0.000 |
+| act_obj_t3_n20_s3 | 20 | 4/3/9 | 6 | 0.072 | 0.060 |
+| act_obj_t3_nall | all | 41/24/29 | 17 | 0.000 | 0.000 |
+| act_obj_t3_nall_s2 | all | 10/37/4 | 33 | 0.000 | 0.000 |
+| act_obj_t3_nall_s3 | all | 18/32/33 | 15 | 0.000 | 0.000 |
+| smolvla_obj_t1_n05 | 5 | 32/33/33 | 1 | 1.000 | 0.846 |
+| smolvla_obj_t1_n05_s2 | 5 | 37/36/29 | 8 | 0.003 | 0.003 |
+| smolvla_obj_t1_n10 | 10 | 41/40/44 | 4 | 0.496 | 0.395 |
+| smolvla_obj_t1_n10_s2 | 10 | 47/41/44 | 6 | 0.075 | 0.067 |
+| smolvla_obj_t1_n20 | 20 | 25/24/33 | 9 | 0.115 | 0.102 |
+| smolvla_obj_t1_n20_s2 | 20 | 32/30/30 | 2 | 0.909 | 0.852 |
+| smolvla_obj_t1_nall | all | 43/35/39 | 8 | 0.101 | 0.091 |
+| smolvla_obj_t1_nall_s2 | all | 36/40/38 | 4 | 0.652 | 0.607 |
+| smolvla_obj_t2_n05 | 5 | 32/35/35 | 3 | 0.682 | 0.549 |
+| smolvla_obj_t2_n05_s2 | 5 | 36/41/39 | 5 | 0.300 | 0.257 |
+| smolvla_obj_t2_n10 | 10 | 50/50/49 | 1 | 1.000 | 0.368 |
+| smolvla_obj_t2_n10_s2 | 10 | 43/46/47 | 4 | 0.335 | 0.236 |
+| smolvla_obj_t2_n20 | 20 | 49/47/49 | 2 | 0.560 | 0.368 |
+| smolvla_obj_t2_n20_s2 | 20 | 46/47/48 | 2 | 0.778 | 0.368 |
+| smolvla_obj_t2_nall | all | 48/44/41 | 7 | 0.008 | 0.010 |
+| smolvla_obj_t2_nall_s2 | all | 44/45/42 | 3 | 0.624 | 0.497 |
+| smolvla_obj_t3_n05 | 5 | 48/46/48 | 2 | 0.670 | 0.513 |
+| smolvla_obj_t3_n05_s2 | 5 | 46/49/47 | 3 | 0.506 | 0.368 |
+| smolvla_obj_t3_n10 | 10 | 32/30/30 | 2 | 0.914 | 0.862 |
+| smolvla_obj_t3_n10_s2 | 10 | 38/37/33 | 5 | 0.562 | 0.459 |
+| smolvla_obj_t3_n20 | 20 | 35/36/26 | 10 | 0.059 | 0.048 |
+| smolvla_obj_t3_n20_s2 | 20 | 40/38/33 | 7 | 0.255 | 0.223 |
+| smolvla_obj_t3_nall | all | 50/49/47 | 3 | 0.220 | 0.097 |
+| smolvla_obj_t3_nall_s2 | all | 46/50/49 | 4 | 0.132 | 0.074 |
 
 </details>
 

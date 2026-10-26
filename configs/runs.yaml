@@ -56,6 +56,11 @@ methods:
   smolvla:
     train_where: HF Jobs l4x1 (L4 24 GB, $0.80/h)
     from: lerobot/smolvla_base (train_expert_only, frozen VLM)
+    # Recorded 26 Oct (audit, Phase 4b): revision of lerobot/smolvla_base in effect for every SmolVLA run
+    # (17-21 Oct). Its latest commit is from 6 Oct 2026 (model card link only), so all runs used this one.
+    # The training command did not pass a revision; to reproduce exactly, download this revision first
+    # (huggingface_hub.snapshot_download("lerobot/smolvla_base", revision=...)) and point --policy.path at it.
+    base_revision: 5e8d12a6e2975b0e5e5fce7c8caf47c371d257b6
     train_args:
       - --policy.path=lerobot/smolvla_base
       - --policy.train_expert_only=true   # explicit (18 Oct): same as pilot and LeRobot default; ~100M of 450M trainable

@@ -330,7 +330,9 @@
    "ckpt_sd_extra": 0.786,
    "ckpt_range_median": 4.0,
    "ckpt_range_max": 10,
-   "runs_ckpt_differ": 0,
+   "runs_ckpt_differ": 2,
+   "runs_ckpt_differ_chi2": 3,
+   "runs_ckpt_differ_expected": 1.2,
    "seed_sd_obs": 4.329,
    "seed_sd_expected": 3.085,
    "seed_ratio": 1.969,
@@ -346,13 +348,152 @@
    "ckpt_sd_extra": 16.824,
    "ckpt_range_median": 12.5,
    "ckpt_range_max": 40,
-   "runs_ckpt_differ": 26,
+   "runs_ckpt_differ": 30,
+   "runs_ckpt_differ_chi2": 30,
+   "runs_ckpt_differ_expected": 1.8,
    "seed_sd_obs": 17.337,
    "seed_sd_expected": 10.29,
    "seed_ratio": 2.839,
    "seed_sd_extra": 13.953,
    "seed_range_max": 47.333
   }
+ },
+ "final_checkpoint": {
+  "smolvla": {
+   "5": {
+    "checkpoint": "005000",
+    "per_seed": {
+     "1": 77.333,
+     "2": 76.667
+    },
+    "mean": 77.0,
+    "seed_min": 76.667,
+    "seed_max": 77.333,
+    "k": 231,
+    "n": 300,
+    "wilson_lo": 71.914,
+    "wilson_hi": 81.403
+   },
+   "10": {
+    "checkpoint": "005000",
+    "per_seed": {
+     "1": 82.0,
+     "2": 82.667
+    },
+    "mean": 82.333,
+    "seed_min": 82.0,
+    "seed_max": 82.667,
+    "k": 247,
+    "n": 300,
+    "wilson_lo": 77.617,
+    "wilson_hi": 86.232
+   },
+   "20": {
+    "checkpoint": "005000",
+    "per_seed": {
+     "1": 72.0,
+     "2": 74.0
+    },
+    "mean": 73.0,
+    "seed_min": 72.0,
+    "seed_max": 74.0,
+    "k": 219,
+    "n": 300,
+    "wilson_lo": 67.709,
+    "wilson_hi": 77.71
+   },
+   "all": {
+    "checkpoint": "005000",
+    "per_seed": {
+     "1": 84.667,
+     "2": 86.0
+    },
+    "mean": 85.333,
+    "seed_min": 84.667,
+    "seed_max": 86.0,
+    "k": 256,
+    "n": 300,
+    "wilson_lo": 80.884,
+    "wilson_hi": 88.889
+   }
+  },
+  "act": {
+   "5": {
+    "checkpoint": "010000",
+    "per_seed": {
+     "1": 16.0,
+     "2": 8.667,
+     "3": 52.667
+    },
+    "mean": 25.778,
+    "seed_min": 8.667,
+    "seed_max": 52.667,
+    "k": 116,
+    "n": 450,
+    "wilson_lo": 21.953,
+    "wilson_hi": 30.012
+   },
+   "10": {
+    "checkpoint": "010000",
+    "per_seed": {
+     "1": 31.333,
+     "2": 63.333,
+     "3": 40.0
+    },
+    "mean": 44.889,
+    "seed_min": 31.333,
+    "seed_max": 63.333,
+    "k": 202,
+    "n": 450,
+    "wilson_lo": 40.356,
+    "wilson_hi": 49.508
+   },
+   "20": {
+    "checkpoint": "010000",
+    "per_seed": {
+     "1": 44.0,
+     "2": 52.667,
+     "3": 15.333
+    },
+    "mean": 37.333,
+    "seed_min": 15.333,
+    "seed_max": 52.667,
+    "k": 168,
+    "n": 450,
+    "wilson_lo": 32.989,
+    "wilson_hi": 41.892
+   },
+   "all": {
+    "checkpoint": "010000",
+    "per_seed": {
+     "1": 62.667,
+     "2": 37.333,
+     "3": 59.333
+    },
+    "mean": 53.111,
+    "seed_min": 37.333,
+    "seed_max": 62.667,
+    "k": 239,
+    "n": 450,
+    "wilson_lo": 48.494,
+    "wilson_hi": 57.676
+   }
+  }
+ },
+ "final_checkpoint_claim": {
+  "act_best_seed_all": 62.667,
+  "smolvla_worst_seed": {
+   "5": 76.667,
+   "10": 82.0,
+   "20": 72.0,
+   "all": 84.667
+  },
+  "holds_at": [
+   "5",
+   "10",
+   "20",
+   "all"
+  ]
  },
  "demos_to_50": {
   "smolvla": {
