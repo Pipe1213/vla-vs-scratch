@@ -18,6 +18,14 @@ For each data line the script checks that
 reported as warnings (small experiment-design constants such as 3, 5, 10, 20, 50 are ignored).
 Placeholders (TODO, TBD, XXX) outside the notes fail the check, so a draft cannot be published with one.
 
+LaTeX files (writeup/report.tex) work the same way, with the note as a block of % comment lines:
+
+    % CHECK P3
+    % - "(78\\% success)" <- results/summary.json:headline.smolvla.5.mean (78.0)
+
+Quoted text is matched against the LaTeX source as written (so 78\\% with the backslash). Only text after
+\\begin{document} is checked; tabular environments, figure files, citations and labels are ignored.
+
 Usage:
   python scripts/check_numbers.py README.md                 # check; exit code 1 if anything fails
   python scripts/check_numbers.py README.md --manual        # also list the manual checks
@@ -70,6 +78,36 @@ def lookup(file: str, path: str):
     return data
 
 
+def tex_to_notes(src: str) -> str:
+    """LaTeX source -> the Markdown-style form used here: `% CHECK` comment blocks become <!-- CHECK ... -->
+    notes, every other comment is dropped, and the preamble is left out."""
+    if "\\begin{document}" in src:
+        src = src[src.index("\\begin{document}"):]
+    lines, out, i = src.split("\n"), [], 0
+    while i < len(lines):
+        if re.match(r"\s*%\s*CHECK\s+\S+", lines[i]):
+            block = [lines[i].strip().lstrip("%").strip()]
+            i += 1
+            while i < len(lines) and lines[i].lstrip().startswith("%"):
+                block.append(re.sub(r"^\s*%\s?", "", lines[i]))
+                i += 1
+            out.append("<!-- " + "\n".join(block) + "\n-->")
+            continue
+        out.append(re.sub(r"(?<!\\)%.*", "", lines[i]))
+        i += 1
+    return "\n".join(out)
+
+
+def prose_tex(text: str) -> str:
+    """Typed LaTeX prose only: no tabular content, figure files, references, lengths or command names."""
+    text = re.sub(r"\\begin\{tabular\}.*?\\end\{tabular\}", "", text, flags=re.S)
+    text = re.sub(r"\\(includegraphics|cite|citep|ref|label|url|vspace|hspace|setlength|small|footnotesize)"
+                  r"(\[[^\]]*\])?(\{[^}]*\})?", "", text)
+    text = re.sub(r"\\href\{[^}]*\}", "", text)
+    text = re.sub(r"\\[A-Za-z]+\*?", "", text)
+    return text
+
+
 def prose(text: str) -> str:
     """Paragraph text without code blocks and tables (those are generated, not typed)."""
     text = re.sub(r"```.*?```", "", text, flags=re.S)
@@ -79,7 +117,8 @@ def prose(text: str) -> str:
 
 
 def check(path: Path, show_manual: bool) -> int:
-    src = path.read_text()
+    tex = path.suffix == ".tex"
+    src = tex_to_notes(path.read_text()) if tex else path.read_text()
     fails, warns, manual, n_data = [], [], [], 0
     pos = 0
     for m in BLOCK.finditer(src):
@@ -115,7 +154,7 @@ def check(path: Path, show_manual: bool) -> int:
             nums = numbers(snippet)
             if nums and not any(abs(round(float(actual), decimals(n)) - as_float(n)) < 1e-9 for n in nums):
                 fails.append(f"{pid}: \"{snippet}\" does not show {key} = {actual} (rounded as written)")
-        for n in numbers(prose(region)):
+        for n in numbers(prose_tex(region) if tex else prose(region)):
             if n.lstrip("-") not in IGNORE and as_float(n) not in covered:
                 warns.append(f"{pid}: number {n} in the prose is not covered by a CHECK line")
     for i, line in enumerate(COMMENT.sub("", src).splitlines(), 1):
@@ -133,6 +172,17 @@ def check(path: Path, show_manual: bool) -> int:
 
 
 def strip(path: Path) -> str:
+    if path.suffix == ".tex":   # drop only the % CHECK blocks; LaTeX comments are invisible in the PDF anyway
+        out, skip = [], False
+        for line in path.read_text().split("\n"):
+            if re.match(r"\s*%\s*CHECK\s+\S+", line):
+                skip = True
+                continue
+            if skip and line.lstrip().startswith("%"):
+                continue
+            skip = False
+            out.append(line)
+        return re.sub(r"\n{3,}", "\n\n", "\n".join(out))
     out = COMMENT.sub("", path.read_text())
     return re.sub(r"\n{3,}", "\n\n", out).lstrip("\n")
 

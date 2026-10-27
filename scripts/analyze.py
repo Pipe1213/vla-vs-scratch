@@ -5,7 +5,7 @@
 
 Reads   results/results.csv (grid), results/diagnostics.csv (butter 30k runs, reported separately),
         results/compute_log.csv, configs/runs.yaml, configs/splits.json
-Writes  results/figures/{headline,per_task,stability,scenes}.{png,svg}
+Writes  results/figures/{headline,per_task,stability,scenes}.{png,svg}, results/figures/paper/{headline,stability}.pdf
         (+ failure analysis from notes/failure_codes.csv once videos are coded with scripts/code_videos.py)
         results/analysis.md     all tables, README-ready
         results/summary.json    every number quoted in the README / PDF / site (copy from here, never by hand)
@@ -584,6 +584,76 @@ def fig_scenes(sc: pd.DataFrame):
     save(fig, "scenes")
 
 
+def save_paper(fig, name):
+    """Vector figure for the 2-page write-up (writeup/report.tex): no title, fonts embedded as Type 3."""
+    out = FIG_DIR / "paper"
+    out.mkdir(parents=True, exist_ok=True)
+    with plt.rc_context({"pdf.fonttype": 3}):   # Type 3: Inter is OpenType here; type 42 gives a mismatch warning
+        fig.savefig(out / f"{name}.pdf", bbox_inches="tight", metadata={"CreationDate": None, "Creator": None,
+                                                                         "Producer": None})
+    plt.close(fig)
+
+
+def paper_figures(head: pd.DataFrame, n_all_mean: float, runs: pd.DataFrame):
+    """Column-width headline and full-width stability figure for the PDF write-up (same data as the README ones)."""
+    small = {"font.size": 7.5, "axes.labelsize": 7.5, "xtick.labelsize": 7, "ytick.labelsize": 7,
+             "legend.fontsize": 6.8}
+    xs = x_positions(n_all_mean)
+    with plt.rc_context(small):
+        fig, ax = plt.subplots(figsize=(3.35, 2.35))
+        for m in METHODS:
+            h = head[head.method == m].set_index("size").loc[SIZES]
+            x = [xs[s] for s in SIZES]
+            ax.fill_between(x, h["seed_min"], h["seed_max"], color=COLOR[m], alpha=0.14, lw=0, zorder=1)
+            for s in SIZES:
+                for v in h.loc[s, "per_seed"].values():
+                    ax.plot(xs[s], v, "o", ms=3, color=COLOR[m], alpha=0.55, mec=SURFACE, mew=0.5, zorder=2)
+            ax.plot(x, h["mean"], "-o", color=COLOR[m], lw=1.6, ms=4.5, mec=SURFACE, mew=1, zorder=3,
+                    label=f"{METHOD_LABEL[m]}, {len(SEEDS[m])} seeds")
+        ax.set_xscale("log")
+        ax.set_xticks([xs[s] for s in SIZES])
+        ax.set_xticklabels(["5", "10", "20", "all\n(45 to 50)"])
+        ax.minorticks_off()
+        ax.set_xlim(4.3, 52)
+        ax.set_ylim(0, 100)
+        ax.set_yticks(range(0, 101, 25))
+        ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
+        ax.grid(axis="x", visible=False)
+        ax.set_xlabel("Demonstrations per task (log scale)")
+        ax.set_ylabel("Success rate")
+        ax.legend(loc="lower left", bbox_to_anchor=(0, 1.0), ncol=1, handlelength=1.4)
+        save_paper(fig, "headline")
+
+        fig, ax = plt.subplots(figsize=(7.0, 2.1))
+        gap, xt, xl = 7.0, [], []
+        offs = {("act", 1): 0, ("act", 2): 1, ("act", 3): 2, ("smolvla", 1): 3.5, ("smolvla", 2): 4.5}
+        for gi, (t, s) in enumerate([(t, s) for t in TASKS for s in SIZES]):
+            base = gi * gap
+            for (m, seed), o in offs.items():
+                r = runs[(runs.method == m) & (runs.task == t) & (runs["size"] == s) & (runs.seed == seed)].iloc[0]
+                v = np.array(r["ckpt_counts"]) * 100 / N_EPS
+                ax.plot([base + o] * 2, [v.min(), v.max()], color=COLOR[m], lw=1.5, solid_capstyle="round", zorder=2)
+                ax.plot([base + o] * 3, v, "o", color=COLOR[m], ms=2.6, mec=SURFACE, mew=0.4, zorder=3)
+            xt.append(base + 2.25)
+            xl.append(s)
+            if gi % 4 == 0 and gi:
+                ax.axvline(base - gap / 2 + 0.25, color=GRID, lw=0.8)
+        for ti, t in enumerate(TASKS):
+            ax.text(ti * 4 * gap + 1.5 * gap + 2.25, -24, TASK_TITLE[t], ha="center", fontsize=7.5, color=INK)
+        ax.set_xticks(xt)
+        ax.set_xticklabels(xl)
+        ax.grid(axis="x", visible=False)
+        ax.set_xlim(-1.5, 12 * gap - 1.5)
+        ax.set_ylim(0, 100)
+        ax.set_yticks(range(0, 101, 25))
+        ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
+        ax.set_ylabel("Success of one checkpoint")
+        handles = [Line2D([], [], color=COLOR[m], lw=1.5, marker="o", ms=3, mec=SURFACE, label=METHOD_LABEL[m])
+                   for m in ["act", "smolvla"]]
+        ax.legend(handles=handles, loc="lower left", bbox_to_anchor=(0, 1.0), ncol=2)
+        save_paper(fig, "stability")
+
+
 # --------------------------------------------------------------------------------------------- report
 def md_table(headers, rows, align=None):
     align = align or ["l"] + ["r"] * (len(headers) - 1)
@@ -804,6 +874,7 @@ def main():
     fig_per_task(pt, n_all)
     fig_stability(runs, summ)
     fig_scenes(sc)
+    paper_figures(head, n_all_mean, runs)
 
     MD_OUT.write_text(report(head, pt, runs, summ, d50, claim, sc, bt, comp, n_all, fl, fin, fclaim) + "\n")
     summary = dict(
