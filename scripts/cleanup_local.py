@@ -46,8 +46,11 @@ def hub_files(api, repo: str) -> dict[str, int] | None:
 
 
 def verify(api, run_dir: Path) -> tuple[bool, str]:
+    # LeRobot's checkpoints/last is a symlink to the final step: not a copy, never uploaded under that name -> skip
+    ckpt_dirs = [d for d in sorted(run_dir.glob("checkpoints/*")) if d.is_dir() and not d.is_symlink()]
+    links = [d.name for d in run_dir.glob("checkpoints/*") if d.is_symlink()]
     local = {p.relative_to(run_dir).as_posix(): p.stat().st_size
-             for p in run_dir.glob("checkpoints/*/pretrained_model/**/*") if p.is_file()}
+             for d in ckpt_dirs for p in (d / "pretrained_model").rglob("*") if p.is_file()}
     if not local:
         return False, "no local pretrained_model files"
     remote = hub_files(api, f"{USER}/{run_dir.name}")
@@ -57,7 +60,8 @@ def verify(api, run_dir: Path) -> tuple[bool, str]:
     differ = [k for k in local if k in remote and remote[k] != local[k]]
     if missing or differ:
         return False, f"{len(missing)} files missing on the Hub, {len(differ)} with a different size (e.g. {(missing + differ)[0]})"
-    return True, f"{len(local)} files match"
+    note = f" (skipped link: {', '.join(links)})" if links else ""
+    return True, f"{len(local)} files in {len(ckpt_dirs)} checkpoints match{note}"
 
 
 def main():
