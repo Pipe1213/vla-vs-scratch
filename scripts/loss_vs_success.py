@@ -72,27 +72,41 @@ def fetch(names: list[str], entity: str | None, project: str) -> pd.DataFrame:
     for r in api.runs(f"{ent}/{project}", filters={"display_name": {"$in": names}}):
         found.setdefault(r.name, []).append(r)
 
+    def loss_rows(run) -> list[dict]:
+        out = []
+        for row in run.scan_history():  # all logged rows; ~50 per ACT run, ~25 per SmolVLA run
+            if row.get("train/loss") is not None:
+                out.append({"name": run.name, "wandb_id": run.id, "step": int(row["_step"]),
+                            **{c.split("/", 1)[1]: row.get(c) for c in LOSS_COLS}})
+        return out
+
     rows, problems = [], []
     for name in names:
         cands = found.get(name, [])
         last_ckpt = max(CKPTS[name.split("_")[0]])
         # Keep runs that got to the last evaluated checkpoint (drops crashed / cancelled attempts).
         good = [r for r in cands if (r.summary.get("_step") or 0) >= last_ckpt]
+        histories = {}
         if not good:
-            problems.append(f"{name}: no wandb run reaching step {last_ckpt} ({len(cands)} found)")
+            # A run stopped by hand at exit (e.g. act_obj_t1_n05_s2, which hung on wandb uploads on 21 Oct) can
+            # have a complete loss history but no final summary: check the logged steps themselves.
+            for r in cands:
+                histories[r.id] = loss_rows(r)
+                top = max((x["step"] for x in histories[r.id]), default=0)
+                print(f"  [info] {name}: wandb run {r.id} ({r.state}) summary step "
+                      f"{r.summary.get('_step')}, last logged loss step {top}")
+                if top >= last_ckpt:
+                    good.append(r)
+        if not good:
+            problems.append(f"{name}: no wandb run with loss logged up to step {last_ckpt} ({len(cands)} found)")
             continue
         if len(good) > 1:
             good.sort(key=lambda r: r.created_at)
             print(f"  [warn] {name}: {len(good)} complete wandb runs ({', '.join(r.id for r in good)}); using the latest")
         run = good[-1]
-        n = 0
-        for row in run.scan_history():  # all logged rows; ~50 per ACT run, ~25 per SmolVLA run
-            if row.get("train/loss") is None:
-                continue
-            rows.append({"name": name, "wandb_id": run.id, "step": int(row["_step"]),
-                         **{c.split("/", 1)[1]: row.get(c) for c in LOSS_COLS}})
-            n += 1
-        print(f"  {name}: {run.id}, {n} loss points")
+        new = histories.get(run.id) or loss_rows(run)
+        rows.extend(new)
+        print(f"  {name}: {run.id}, {len(new)} loss points")
     if problems:
         print("\n".join(["Not found:"] + problems))
     return pd.DataFrame(rows)
