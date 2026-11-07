@@ -432,14 +432,16 @@ def main() -> None:
     server.daemon_threads = True
     threading.Thread(target=server.serve_forever, daemon=True).start()
 
-    @parser.wrap()
     def _start(cfg: EvalPipelineConfig) -> None:
         player = Player(cfg, own, shared)
         print(f"[play] open http://localhost:{own.port} in your browser (Ctrl-C here to stop)")
         player.run()
 
+    # parser.wrap() reads the config class from the annotation; with `from __future__ import annotations`
+    # it would get the string "EvalPipelineConfig", so set the class itself.
+    _start.__annotations__["cfg"] = EvalPipelineConfig
     try:
-        _start()
+        parser.wrap()(_start)()
     except KeyboardInterrupt:
         print("\n[play] stopped")
     finally:
